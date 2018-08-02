@@ -9,5 +9,6 @@ public class DisertatieApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DisertatieApplication.class, args);
+		
 	}
 }
