@@ -1,26 +1,20 @@
 package com.facultate.disertatie.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.facultate.disertatie.dao.AppRoleDAO;
-import com.facultate.disertatie.dao.AppUserDAO;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
-import com.facultate.disertatie.repository.AppUserRepository;
 import com.facultate.disertatie.security.JWTFilter;
 import com.facultate.disertatie.service.UserServiceImpl;
 
