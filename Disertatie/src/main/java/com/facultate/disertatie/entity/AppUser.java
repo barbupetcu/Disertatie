@@ -1,64 +1,117 @@
 package com.facultate.disertatie.entity;
 
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
- 
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "App_User", //
-        uniqueConstraints = { //
-                @UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Name") })
+		uniqueConstraints = { //
+				@UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Name") })
 public class AppUser {
- 
-    @Id
-    @Column(name = "User_Id", nullable = false)
-    private Long userId;
- 
-    @Column(name = "User_Name", length = 36, nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="id_user_seq")
+	@SequenceGenerator(name="id_user_seq", sequenceName = "id_user_seq", allocationSize=20)
+	@Column(name = "User_Id", updatable = false, nullable = false)
+    private Long id;
+	
+	@Column(name = "User_Name", length = 36, nullable = false)
     private String username;
- 
-    @Column(name = "Encryted_Password", length = 128, nullable = false)
-    private String encrytedPassword;
- 
+    
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "password", length = 128, nullable = false)
+    private String password;
+    
     @Column(name = "Enabled", length = 1, nullable = false)
     private boolean enabled;
- 
-    public Long getUserId() {
-        return userId;
+    
+    @JsonIgnore
+    @Column(name="created")
+	@CreationTimestamp
+	private LocalDateTime createDateTime;
+    
+    @JsonIgnore
+	@Column(name="modified")
+	@UpdateTimestamp
+	private LocalDateTime updateDateTime;
+    
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<AppRole> roles;
+
+    public Long getId() {
+        return id;
     }
- 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+
+    public void setId(Long id) {
+        this.id = id;
     }
- 
-    public String getUserName() {
+
+    public String getUsername() {
         return username;
     }
- 
-    public void setUserName(String userName) {
-        this.username = userName;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
- 
-    public String getEncrytedPassword() {
-        return encrytedPassword;
+
+    public String getPassword() {
+        return password;
     }
- 
-    public void setEncrytedPassword(String encrytedPassword) {
-        this.encrytedPassword = encrytedPassword;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
- 
+
     public boolean isEnabled() {
-        return enabled;
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public LocalDateTime getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+
+	
+    public Set<AppRole> getRoles() {
+        return roles;
     }
- 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+
+    public void setRoles(Set<AppRole> roles) {
+        this.roles = roles;
     }
- 
 }

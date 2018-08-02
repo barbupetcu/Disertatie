@@ -6,5 +6,5 @@ import com.facultate.disertatie.entity.AppUser;
 
 
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-	public AppUser findOneByUsername(String username);
+	public AppUser findByUsername(String username);
 }

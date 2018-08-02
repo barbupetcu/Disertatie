@@ -24,7 +24,8 @@ import java.util.List;
 //verificarea tokenului din header
 public class JWTFilter extends GenericFilterBean {
 	private static final String AUTHORIZATION_HEADER = "Authorization";
-	private static final String AUTHORITIES_KEY = "roles";
+	public static final String AUTHORITIES_KEY = "roles";
+	public static final String TOKEN_KEY = "disertatie";
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
@@ -37,7 +38,7 @@ public class JWTFilter extends GenericFilterBean {
 		} else {
 			try {
 				String token = authHeader.substring(7);
-				Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
+				Claims claims = Jwts.parser().setSigningKey(TOKEN_KEY).parseClaimsJws(token).getBody();
 				request.setAttribute("claims", claims);
 				SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));
 				filterChain.doFilter(req, res);

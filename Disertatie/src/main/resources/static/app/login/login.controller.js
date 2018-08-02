@@ -20,11 +20,11 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.data.success) {
-                	var authdata = response.data.body.token
+                	var authdata = response.data.token
                     AuthenticationService.SetCredentials(vm.username, authdata);
                     $location.path('/');
                 } else {
-                    FlashService.Error(response.message);
+                    FlashService.Error(response.data.message);
                     vm.dataLoading = false;
                 }
             });
