@@ -1,4 +1,4 @@
-package com.facultate.disertatie.config;
+package com.facultate.disertatie.security;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

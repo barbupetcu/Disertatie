@@ -1,4 +1,4 @@
-package com.facultate.disertatie.config;
+package com.facultate.disertatie.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
