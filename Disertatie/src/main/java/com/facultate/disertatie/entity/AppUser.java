@@ -31,7 +31,7 @@ public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="id_user_seq")
 	@SequenceGenerator(name="id_user_seq", sequenceName = "id_user_seq", allocationSize=20)
-	@Column(name = "User_Id", updatable = false, nullable = false)
+	@Column(name = "id", updatable = false, nullable = false)
     private Long id;
 	
 	@Column(name = "User_Name", length = 36, nullable = false)
@@ -58,6 +58,11 @@ public class AppUser {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<AppRole> roles;
 
+    /*public AppUser(String username, String password) {
+    	this.username= username;
+    	this.password=password;
+    }*/
+    
     public Long getId() {
         return id;
     }

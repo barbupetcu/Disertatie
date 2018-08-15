@@ -2,17 +2,24 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
+        .module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial'])
         .config(config)
         .run(run);
 
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/', {
+            .when('/homeUser', {
                 controller: 'HomeController',
-                templateUrl: 'app/home/home.view.html',
+                templateUrl: 'app/app-deploy/home/ROLE_USER/home.view.html',
                 controllerAs: 'vm'
+            })
+            .when('/homeManager', {
+                templateUrl: 'app/app-deploy/home/ROLE_MANAGER/home.view.html'
+            })
+
+            .when('/task', {
+                templateUrl: 'app/app-deploy/task/task.view.html'
             })
 
             .when('/login', {

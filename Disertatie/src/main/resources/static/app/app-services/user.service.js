@@ -36,11 +36,11 @@
             }).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function Create(user) {
+        function Create(user, perso) {
         	return $http({
                 url: '/register',
                 method: "POST",
-                params: user
+                data: {appUser:user, appPerso:perso}
             }).then(handleSuccess, handleError('Error creating user'));
         }
 

@@ -20,9 +20,12 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.data.success) {
-                	var authdata = response.data.token
-                    AuthenticationService.SetCredentials(vm.username, authdata);
-                    $location.path('/');
+                    AuthenticationService.SetCredentials(response.data);
+                    if(response.data.roles.indexOf("ROLE_MANAGER")>=0){
+                        $location.path('/homeManager');
+                    } else {
+                        $location.path('/homeUser');
+                    }
                 } else {
                     FlashService.Error(response.data.message);
                     vm.dataLoading = false;

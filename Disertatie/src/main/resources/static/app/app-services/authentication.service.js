@@ -30,17 +30,28 @@
 
         }
 
-        function SetCredentials(username, authdata) {
- 
+        function SetCredentials(response) {
+
+            var isManager = false;
+            if (response.roles.indexOf("ROLE_MANAGER")>=0){
+                isManager = true;
+            }
+
             $rootScope.globals = {
                 currentUser: {
-                    username: username,
-                    authdata: authdata
+                    username: response.username,
+                    authdata: response.token,
+                    name: response.name,
+                    lastName: response.lastName,
+                    dept: response.dept,
+                    id: response.id,
+                    roles: response.roles,
+                    isManager: isManager,
                 }
             };
  
             // se adauga tokenul generat in headerul urmatoarelor requesturi
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + authdata;
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
  
             // se adauga detaliile userului in cookies pana cand userul se delogheaza sau pana cand acestea expira
             var cookieExp = new Date();

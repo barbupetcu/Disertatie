@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 
 		web.ignoring()
-				.antMatchers("/", "/index.html", "/app/**", "/register", "/authenticate", "/login");
+				.antMatchers("/favicon.ico", "/error", "/", "/index.html", "/app/**", "/register", "/authenticate", "/login");
 	}
 
 
@@ -37,18 +37,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		
 		http
-				// starts authorizing configurations
 				.authorizeRequests()
-				// authenticate all remaining URLS
+				//toate request-urile ramase au nevoie de autentificare
 				.anyRequest().fullyAuthenticated().and()
-				// adding JWT filter
+				// adaugam JWTFilter
 				.addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)
-				// enabling the basic authentication
+				// activam basic authentification
 				.httpBasic().and()
-				// configuring the session as state less. Which means there is
-				// no session in the server
+				// configuram sesiunea ca STATELESS => nu exista nicio sesiune stocata pe server
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				// disabling the CSRF - Cross Site Request Forgery
+				// dezactivam CSRF - Cross Site Request Forgery
 				.csrf().disable();
 	}
 
