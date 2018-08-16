@@ -9,7 +9,7 @@
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/homeUser', {
+            .when('/', {
                 controller: 'HomeController',
                 templateUrl: 'app/app-deploy/home/ROLE_USER/home.view.html',
                 controllerAs: 'vm'
@@ -52,6 +52,19 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
+
+            if(!!restrictedPage){
+                if ($rootScope.globals.currentUser.roles.indexOf("ROLE_MANAGER")>=0 && $location.path()==="/"){
+                    $location.path('homeManager');
+                }
+            }
+            
+
+            $rootScope.isActiveNavBar = function (viewLocation) {
+                var active = (viewLocation === $location.path());
+                return active;
+            };
+
         });
     }
 

@@ -24,7 +24,7 @@
                     if(response.data.roles.indexOf("ROLE_MANAGER")>=0){
                         $location.path('/homeManager');
                     } else {
-                        $location.path('/homeUser');
+                        $location.path('/');
                     }
                 } else {
                     FlashService.Error(response.data.message);
