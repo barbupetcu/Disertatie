@@ -13,10 +13,14 @@
 
         vm.loadDept = function(){
             if(vm.depts.length ==0){
-                vm.depts =[{id: '1', name: 'Action 1'},
-                {id: '2', name: 'Action 2'},
-                {id: '3', name: 'Action 3'}
-            ];
+                UserService.getDepts()
+                    .then(function(response){
+                        if (response.data.success){
+                            vm.depts = response.data.depts;
+                        } else {
+                            FlashService.Error(response.message);
+                        }
+                    });
             }
         }
         

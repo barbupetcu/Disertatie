@@ -1,3 +1,13 @@
 a {
     cursor: pointer;
 }
+#jumbo {
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.page-settings{
+    margin-top:10px;
+    background-color: rgb(194, 196, 196);
+    margin-bottom:10px;
+
+}

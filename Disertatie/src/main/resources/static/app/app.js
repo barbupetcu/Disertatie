@@ -18,6 +18,10 @@
                 templateUrl: 'app/app-deploy/home/ROLE_MANAGER/home.view.html'
             })
 
+            .when('/editUser', {
+                templateUrl: 'app/app-deploy/users/editUser.view.html'
+            })
+
             .when('/task', {
                 templateUrl: 'app/app-deploy/task/task.view.html'
             })
@@ -47,15 +51,21 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
+            $rootScope.isRestrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
 
-            if(!!restrictedPage){
+            if ($rootScope.globals.currentUser=== undefined) {
+                $rootScope.globals.currentUser ={};
+            }
+
+            if(!restrictedPage && $rootScope.globals.currentUser.roles!= undefined){
                 if ($rootScope.globals.currentUser.roles.indexOf("ROLE_MANAGER")>=0 && $location.path()==="/"){
-                    $location.path('homeManager');
+                    $location.path('/homeManager');
                 }
             }
             

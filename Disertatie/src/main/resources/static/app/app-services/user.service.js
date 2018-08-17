@@ -9,7 +9,7 @@
     function UserService($http) {
         var service = {};
 
-        service.GetAll = GetAll;
+        service.getDepts = getDepts;
         service.GetById = GetById;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
@@ -18,8 +18,11 @@
 
         return service;
 
-        function GetAll() {
-            return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
+        function getDepts() {
+            return $http({
+                url: '/api/depts',
+                method: "GET"
+            }).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function GetById(id) {

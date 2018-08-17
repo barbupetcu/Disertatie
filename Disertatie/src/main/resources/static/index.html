@@ -10,11 +10,11 @@
 
 </head>
 <body>
-    <div class="jumbotron">        
-        <div class="container">
+    <div class="jumbotron" id="jumbo">        
+        <div class="container-fluid">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-            <div ng-if="globals.currentUser" ng-include src="'app/include/header.html'"></div>
-            <div ng-view></div>
+            <div ng-if="isRestrictedPage" ng-include src="'app/include/header.html'"></div>
+            <div ng-view ng-class="{'page-settings': isRestrictedPage}"></div>
         </div>
     </div>
 
