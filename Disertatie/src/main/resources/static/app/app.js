@@ -22,6 +22,10 @@
                 templateUrl: 'app/app-deploy/users/editUser.view.html'
             })
 
+            .when('/approveUser', {
+                templateUrl: 'app/app-deploy/users/approveUser.view.html'
+            })
+
             .when('/task', {
                 templateUrl: 'app/app-deploy/task/task.view.html'
             })
