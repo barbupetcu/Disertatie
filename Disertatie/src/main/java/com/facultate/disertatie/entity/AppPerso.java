@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,8 +32,9 @@ public class AppPerso {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "dept")
-	private String dept;
+	@ManyToOne
+	@JoinColumn(name="dept", nullable=false)
+	private Dept dept;
 	
 	@JsonIgnore
     @Column(name="created")
@@ -47,7 +50,19 @@ public class AppPerso {
     @MapsId
     private AppUser user;
     
-    public Long getId() {
+    @OneToOne(mappedBy = "manager", fetch = FetchType.LAZY)
+    private Dept deptManager;
+    
+    
+    public Dept getDeptManager() {
+		return deptManager;
+	}
+
+	public void setDeptManager(Dept deptManager) {
+		this.deptManager = deptManager;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -103,11 +118,11 @@ public class AppPerso {
 		this.email = email;
 	}
 
-	public String getDept() {
+	public Dept getDept() {
 		return dept;
 	}
 
-	public void setDept(String dept) {
+	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
 	
