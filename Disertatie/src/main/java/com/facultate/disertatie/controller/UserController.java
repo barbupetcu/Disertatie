@@ -70,7 +70,7 @@ public class UserController {
 	            tokenMap.put("username", appUser.getUsername());
 	            tokenMap.put("name", appPerso.getName());
 	            tokenMap.put("lastName", appPerso.getLastName());
-	            tokenMap.put("dept", appPerso.getDept());
+	            tokenMap.put("dept", appPerso.getDept().getDeptId());
 	            tokenMap.put("id", appUser.getId());
 	            
 	            Set<String> rolesText = new HashSet<String>();

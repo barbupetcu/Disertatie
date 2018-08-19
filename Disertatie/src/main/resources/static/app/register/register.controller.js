@@ -11,18 +11,23 @@
         
         vm.depts = [];
 
-        vm.loadDept = function(){
+        (function initController() {
+            //se incarca departamentele
+            loadDepts();
+        })();
+
+        function loadDepts(){
             if(vm.depts.length ==0){
                 UserService.getDepts()
                     .then(function(response){
-                        if (response.data.success){
-                            vm.depts = response.data.depts;
+                        if (response.success){
+                            vm.depts = response.dept;
                         } else {
                             FlashService.Error(response.message);
                         }
                     });
             }
-        }
+        };
         
         vm.register = register;
 

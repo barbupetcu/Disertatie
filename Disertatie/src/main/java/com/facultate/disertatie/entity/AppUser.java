@@ -57,12 +57,7 @@ public class AppUser {
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<AppRole> roles;
-
-    /*public AppUser(String username, String password) {
-    	this.username= username;
-    	this.password=password;
-    }*/
-    
+  
     public Long getId() {
         return id;
     }
