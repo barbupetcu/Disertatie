@@ -22,7 +22,15 @@
             return $http({
                 url: '/api/depts',
                 method: "GET"
-            }).then(handleSuccess, handleError('Error getting user by username'));
+            }).then(handleSuccess, handleError('Lista departamentelor nu poate fi incarcata'));
+        }
+
+        function Create(user, perso) {
+        	return $http({
+                url: '/register',
+                method: "POST",
+                data: {appUser:user, appPerso:perso}
+            }).then(handleSuccess, handleError('Eroare la crearea utilizatorului'));
         }
 
         function GetById(id) {
@@ -38,15 +46,7 @@
                 }
             }).then(handleSuccess, handleError('Error getting user by username'));
         }
-
-        function Create(user, perso) {
-        	return $http({
-                url: '/register',
-                method: "POST",
-                data: {appUser:user, appPerso:perso}
-            }).then(handleSuccess, handleError('Error creating user'));
-        }
-
+     
         function Update(user) {
             return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
