@@ -30,6 +30,14 @@
                 templateUrl: 'app/app-deploy/task/task.view.html'
             })
 
+            .when('/descTask', {
+                templateUrl: 'app/app-deploy/task/descTask.view.html'
+            })
+
+            .when('/descTask2', {
+                templateUrl: 'app/app-deploy/task/descTask2.view.html'
+            })
+
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'app/login/login.view.html',
