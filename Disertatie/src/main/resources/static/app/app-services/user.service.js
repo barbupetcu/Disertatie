@@ -10,11 +10,12 @@
         var service = {};
 
         service.getDepts = getDepts;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
+        service.GetUserById = GetUserById;
+        service.EditUser = EditUser;
         service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.ChangePassword = ChangePassword;
+        
+
 
         return service;
 
@@ -25,31 +26,42 @@
             }).then(handleSuccess, handleError('Lista departamentelor nu poate fi incarcata'));
         }
 
-        function Create(user, perso) {
+        function Create(user) {
         	return $http({
                 url: '/register',
                 method: "POST",
-                data: {appUser:user, appPerso:perso}
+                data: {appUser:user}
             }).then(handleSuccess, handleError('Eroare la crearea utilizatorului'));
         }
 
-        function GetById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        function GetUserById(id) {
+            return $http({
+                url: '/api/user',
+                method: "GET",
+                params: {id: id}
+            }).then(handleSuccess, handleError('Datele utilizatorului curent nu au putut fi incarcate'));
         }
 
-        function GetByUsername(username) {
+        function EditUser(user) {
             return $http({
-                url: '/api/users/' + username,
+                url: '/api/editUser',
                 method: "POST",
-                params: {
-                    username: username
-                }
-            }).then(handleSuccess, handleError('Error getting user by username'));
+                data: {user: user}
+            }).then(handleSuccess, handleError('Utilizatorul nu a putut fi modifcat'));
         }
-     
-        function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+
+        function ChangePassword(id, oldPw, newPw) {
+            return $http({
+                url: '/api/changepassword',
+                method: "PUT",
+                params: {id: id,
+                    oldPw: oldPw,
+                    newPw: newPw}
+            }).then(handleSuccess, handleError('Utilizatorul nu a putut fi modifcat'));
         }
+
+
+
 
         function Delete(id) {
             return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));

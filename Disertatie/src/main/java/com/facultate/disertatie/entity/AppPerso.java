@@ -16,7 +16,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "DIC_PERSO")
 public class AppPerso {
@@ -32,6 +36,13 @@ public class AppPerso {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "adress")
+	private String adress;
+	
+	@Column(name = "phone")
+	private String phone;
+	
+	@JsonProperty("dept")
 	@ManyToOne
 	@JoinColumn(name="dept", nullable=false)
 	private Dept dept;
@@ -46,28 +57,17 @@ public class AppPerso {
 	@UpdateTimestamp
 	private LocalDateTime updateDateTime;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId
     private AppUser user;
-    
-    @OneToOne(mappedBy = "manager", fetch = FetchType.LAZY)
-    private Dept deptManager;
-    
-    
-    public Dept getDeptManager() {
-		return deptManager;
-	}
-
-	public void setDeptManager(Dept deptManager) {
-		this.deptManager = deptManager;
-	}
 
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id = user.getId();
 	}
 
 	public String getName() {
@@ -124,6 +124,22 @@ public class AppPerso {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	
