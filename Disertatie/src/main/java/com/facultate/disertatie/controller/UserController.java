@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.facultate.disertatie.entity.AppPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
+import com.facultate.disertatie.entity.Dept;
 import com.facultate.disertatie.repository.AppPersoRepository;
+import com.facultate.disertatie.repository.DeptRepository;
 import com.facultate.disertatie.security.JWTFilter;
 import com.facultate.disertatie.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -101,23 +103,52 @@ public class UserController {
     
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public HashMap<String, Object> createUser(@RequestBody Map<String, Object> params) {
-    	
-    	ObjectMapper mapper = new ObjectMapper();
-    	AppUser appUser = mapper.convertValue(params.get("appUser"), AppUser.class);
-    	AppPerso appPerso = mapper.convertValue(params.get("appPerso"), AppPerso.class);
-    	
+    public HashMap<String, Object> createUser(@RequestBody AppUser appUser) {
+    	  	
     	HashMap<String, Object> response = new HashMap<String, Object>();
     	response.put("success", false);
         if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
         	response.put("message", "Userul deja exista in baza de date");
-        } else {
+        } else {	
     	 	appUserRepository.saveCustomRole(appUser, "ROLE_USER");
-        	appPerso.setUser(appUser);
-        	appPersoRepository.save(appPerso);
+    	 	
         	response.put("success", true);
         }             
         return response;
     }
+    
+    @RequestMapping(value = "/api/user", method = RequestMethod.GET)
+    public AppUser getUserData(@RequestParam Long id){
+    	  	   
+    	
+    	AppUser appUser= appUserRepository.findById(id);
+    	
+    	return appUser;
+    }
+    
+    @RequestMapping(value = "/api/editUser", method = RequestMethod.POST)
+    public AppUser editUser(@RequestBody AppUser user) {
+    	return appUserRepository.editUser(user);
+    }
+    
+    @RequestMapping(value = "/api/changepassword", method = RequestMethod.PUT)
+    public HashMap<String, Object> changePw(@RequestParam Long id, @RequestParam String oldPw, @RequestParam String newPw) {
+    	HashMap<String, Object> response = new HashMap<String, Object>();
+    	
+    	response.put("success", false);
+    	AppUser appUser = appUserRepository.findById(id);  	
+    	
+    	if (appUser != null && bCryptPasswordEncoder.matches(oldPw, appUser.getPassword())) {
+    		appUser.setPassword(bCryptPasswordEncoder.encode(newPw));
+    		appUserRepository.saveUser(appUser);
+    		response.put("success", true);
+    	}
+    	
+    	
+    	return response;
+    }
+    
+    
+    
 
 }
