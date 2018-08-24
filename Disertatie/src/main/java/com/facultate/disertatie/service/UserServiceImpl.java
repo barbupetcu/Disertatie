@@ -1,12 +1,14 @@
 package com.facultate.disertatie.service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.facultate.disertatie.entity.AppPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
 import com.facultate.disertatie.repository.AppRoleRepository;
@@ -28,6 +30,10 @@ public class UserServiceImpl implements UserService {
 
         customRole.add(roleRepository.findByroleName(roleName));
         user.setRoles(customRole);
+        AppPerso appPerso = user.getPerso();
+        appPerso.setUser(user);
+        user.setPerso(appPerso);
+        
         userRepository.save(user);
     }
     
@@ -41,5 +47,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public AppUser findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    
+    public AppUser findById(Long id) {
+    	Optional<AppUser> optional = userRepository.findById(id);
+    	AppUser appUser = optional.get();
+        return appUser;
+    }
+    
+    public AppUser editUser(AppUser appUser) {
+    	AppUser temp = findById(appUser.getId());
+    	appUser.setPassword(temp.getPassword());
+    	return userRepository.save(appUser);
+    }
+    
+    public void saveUser(AppUser user) {
+    	userRepository.save(user);
     }
 }

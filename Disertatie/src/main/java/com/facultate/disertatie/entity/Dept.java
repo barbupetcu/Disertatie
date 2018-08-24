@@ -12,7 +12,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "DEPT")
@@ -25,27 +28,17 @@ public class Dept {
 	private String numeDept;
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinTable(name = "dept_manager", joinColumns = @JoinColumn(name = "dept_id"), inverseJoinColumns = @JoinColumn(name = "manager_id"))
 	private AppPerso manager;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="dept", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="dept", fetch=FetchType.LAZY)
 	private Set<AppPerso> angajati;
-
+	
 	public Set<AppPerso> getAngajati() {
 		
-		Set<AppPerso> Angajati = angajati;
-		for (AppPerso angajat: angajati){
-			AppUser user = angajat.getUser();
-			Set<AppRole> userRoles = user.getRoles();
-			for (AppRole role: userRoles) {
-				if (role.getRoleName() != null && role.getRoleName().equalsIgnoreCase("ROLE_MANAGER")) {
-					Angajati.remove(angajat);
-				}
-			}
-		}
-		return Angajati;
+		return angajati;
 	}
 
 	public void setAngajati(Set<AppPerso> angajati) {

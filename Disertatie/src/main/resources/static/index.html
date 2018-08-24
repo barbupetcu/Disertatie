@@ -12,8 +12,8 @@
 <body>
     <div class="jumbotron" id="jumbo">        
         <div class="container-fluid">
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
             <div ng-if="isRestrictedPage" ng-include src="'app/include/header.html'"></div>
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
             <div ng-view ng-class="{'page-settings': isRestrictedPage}"></div>
         </div>
     </div>
@@ -46,10 +46,10 @@
     <script type="text/javascript" src="app/app-services/user.service.js"></script>
    
     <!--Controller-->
-     <!--Controller-->
     <script type="text/javascript" src="app/login/login.controller.js"></script>
     <script type="text/javascript" src="app/register/register.controller.js"></script>
     <script type="text/javascript" src="app/app-controller/home.controller.js"></script>
+    <script type="text/javascript" src="app/app-controller/editUser.controller.js"></script>
     
 </body>
 </html>

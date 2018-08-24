@@ -19,7 +19,9 @@
             })
 
             .when('/editUser', {
-                templateUrl: 'app/app-deploy/users/editUser.view.html'
+                controller: 'EditUserController',
+                templateUrl: 'app/app-deploy/users/editUser.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/approveUser', {

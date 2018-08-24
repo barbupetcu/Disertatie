@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
  
 @Entity
 @Table(name = "App_Role", //
@@ -25,6 +27,7 @@ public class AppRole {
     @Column(name = "Role_Name", length = 30, nullable = false)
     private String roleName;
     
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<AppUser> users;
  
