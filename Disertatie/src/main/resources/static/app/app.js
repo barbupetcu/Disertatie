@@ -15,7 +15,9 @@
                 controllerAs: 'vm'
             })
             .when('/homeManager', {
-                templateUrl: 'app/app-deploy/home/ROLE_MANAGER/home.view.html'
+                controller: 'HomeControllerMan',
+                templateUrl: 'app/app-deploy/home/ROLE_MANAGER/home.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/editUser', {
