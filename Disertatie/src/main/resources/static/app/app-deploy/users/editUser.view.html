@@ -95,7 +95,7 @@
             <div class="col-6">
                 <div class="form-group" ng-class="{'has-error' : (formPw.passwordConf.$error.pattern || formPw.passwordConf.$error.required) && formPw.passwordConf.$dirty}">
                     <label for="passwordconf">Confirmare parola noua</label>
-                    <input type="password" name="passwordConf" id="passwordConf" class="form-control" required ng-pattern="vm.changePassword.newPassword">
+                    <input type="password" name="passwordConf" id="passwordConf" class="form-control" ng-model="vm.virtual.passwordConf" required ng-pattern="vm.changePassword.newPassword">
                     <span ng-show="(formPw.passwordConf.$error.pattern || formPw.passwordConf.$error.required) && formPw.passwordConf.$dirty" class="text-danger">Cele doua parole nu coincid</span>
                 </div>
             </div>

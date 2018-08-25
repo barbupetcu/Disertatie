@@ -29,7 +29,7 @@
             </div>
             <div class="form-group" ng-class="{'has-error' : (form.passwordConf.$error.pattern || form.passwordConf.$error.required) && form.passwordConf.$dirty}">
                 <label for="passwordConf">Confirmare Parola</label>
-                <input type="password" name="passwordConf" id="passwordConf" class="form-control" required ng-pattern="vm.user.password" />
+                <input type="password" name="passwordConf" id="passwordConf" class="form-control" ng-model="vm.virtual.passwordConf" required ng-pattern="vm.user.password" />
                 <span ng-show="(form.passwordConf.$error.pattern || form.passwordConf.$error.required) && form.passwordConf.$dirty" class="text-danger">Cele doua parole nu coincid</span>
             </div>
             <div class="form-group">

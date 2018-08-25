@@ -14,7 +14,7 @@
         service.EditUser = EditUser;
         service.Create = Create;
         service.ChangePassword = ChangePassword;
-        
+        service.LoadDisabledUsers = LoadDisabledUsers;
 
 
         return service;
@@ -27,11 +27,7 @@
         }
 
         function Create(user) {
-        	return $http({
-                url: '/register',
-                method: "POST",
-                data: {appUser:user}
-            }).then(handleSuccess, handleError('Eroare la crearea utilizatorului'));
+        	return $http.post('/register', JSON.stringify(user)).then(handleSuccess, handleError('Eroare la crearea utilizatorului'));
         }
 
         function GetUserById(id) {
@@ -43,11 +39,8 @@
         }
 
         function EditUser(user) {
-            return $http({
-                url: '/api/editUser',
-                method: "POST",
-                data: {user: user}
-            }).then(handleSuccess, handleError('Utilizatorul nu a putut fi modifcat'));
+            
+            return $http.put('/api/editUser', JSON.stringify(user)).then(handleSuccess, handleError('Utilizatorul nu a putut fi modifcat'));
         }
 
         function ChangePassword(id, oldPw, newPw) {
@@ -58,6 +51,14 @@
                     oldPw: oldPw,
                     newPw: newPw}
             }).then(handleSuccess, handleError('Utilizatorul nu a putut fi modifcat'));
+        }
+
+        function LoadDisabledUsers(dept) {
+            return $http({
+                url: '/api/disabledUsers', 
+                method:"GET",
+                params: {dept: dept}
+            }).then(handleSuccess, handleError('Eroare la incarcarea utilizatorilor neactivati'));
         }
 
 

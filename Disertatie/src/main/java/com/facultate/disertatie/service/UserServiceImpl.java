@@ -1,6 +1,7 @@
 package com.facultate.disertatie.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Service;
 import com.facultate.disertatie.entity.AppPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
+import com.facultate.disertatie.projection.DisabledUsers;
 import com.facultate.disertatie.repository.AppRoleRepository;
 import com.facultate.disertatie.repository.AppUserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
     @Autowired
     private AppUserRepository userRepository;
     @Autowired
@@ -23,7 +25,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
     public void saveCustomRole(AppUser user, String roleName) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<AppRole> customRole = new HashSet<>();
@@ -37,14 +38,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
     
-    @Override
     public void saveAllRoles(AppUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
-    @Override
     public AppUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -63,5 +62,14 @@ public class UserServiceImpl implements UserService {
     
     public void saveUser(AppUser user) {
     	userRepository.save(user);
+    }
+    
+    public long countDisabledUser(long dept) {
+    	return userRepository.countByEnabledAndPerso_Dept_deptId(false, dept);
+    }
+    
+    public List<DisabledUsers> getDisabledUsers(Long deptId){
+		return userRepository.findByEnabledAndPerso_Dept_deptId(false, deptId);
+    	
     }
 }
