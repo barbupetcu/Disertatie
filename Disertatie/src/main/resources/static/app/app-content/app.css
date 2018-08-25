@@ -20,3 +20,13 @@ padding-bottom: 10px;
     max-height: 200px;
     overflow-y: auto;
 }
+
+.listTasks{
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.backgroundTasks{
+    background-color: rgb(255, 255, 255);
+    height: 200px;
+}
