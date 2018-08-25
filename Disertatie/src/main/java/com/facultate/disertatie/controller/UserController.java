@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.facultate.disertatie.entity.AppPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
-import com.facultate.disertatie.entity.Dept;
-import com.facultate.disertatie.repository.AppPersoRepository;
-import com.facultate.disertatie.repository.DeptRepository;
+import com.facultate.disertatie.projection.DisabledUsers;
 import com.facultate.disertatie.security.JWTFilter;
 import com.facultate.disertatie.service.UserServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,16 +31,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserController {
  
     @Autowired
-    private UserServiceImpl appUserRepository;
+    private UserServiceImpl userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private AppPersoRepository appPersoRepository;
+    
     
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public HashMap<String, Object> checkLogin(@RequestParam String username, @RequestParam String password) throws IOException {
     	String token = null;
-        AppUser appUser = appUserRepository.findByUsername(username);
+        AppUser appUser = userService.findByUsername(username);
     	
     	HashMap<String, Object> tokenMap = new HashMap<String, Object>();
     	
@@ -65,8 +59,8 @@ public class UserController {
 	            tokenMap.put("token", token);
 	            tokenMap.put("success", true);
 	            
-	            Optional<AppPerso> optional = appPersoRepository.findById(appUser.getId());
-	            AppPerso appPerso = optional.get();
+	            
+	            AppPerso appPerso = appUser.getPerso();
 	            
 	            //adaugam in raspuns elementele care vor fi stocate permanent in partea de client
 	            tokenMap.put("username", appUser.getUsername());
@@ -107,10 +101,10 @@ public class UserController {
     	  	
     	HashMap<String, Object> response = new HashMap<String, Object>();
     	response.put("success", false);
-        if (appUserRepository.findByUsername(appUser.getUsername()) != null) {
+        if (userService.findByUsername(appUser.getUsername()) != null) {
         	response.put("message", "Userul deja exista in baza de date");
         } else {	
-    	 	appUserRepository.saveCustomRole(appUser, "ROLE_USER");
+        	userService.saveCustomRole(appUser, "ROLE_USER");
     	 	
         	response.put("success", true);
         }             
@@ -121,14 +115,22 @@ public class UserController {
     public AppUser getUserData(@RequestParam Long id){
     	  	   
     	
-    	AppUser appUser= appUserRepository.findById(id);
+    	AppUser appUser= userService.findById(id);
     	
     	return appUser;
     }
     
-    @RequestMapping(value = "/api/editUser", method = RequestMethod.POST)
-    public AppUser editUser(@RequestBody AppUser user) {
-    	return appUserRepository.editUser(user);
+    @RequestMapping(value = "/api/editUser", method = RequestMethod.PUT)
+    public HashMap<String, Object> editUser(@RequestBody AppUser user) {
+    	HashMap<String, Object> response = new HashMap<String, Object>();
+    	response.put("success", false);
+    	if(userService.editUser(user)!=null) {
+    		response.put("success", true);
+    	}
+    	else {
+    		response.put("message", "Datele utilizatorului nu au putut fi salvate");
+    	}
+    	return response;
     }
     
     @RequestMapping(value = "/api/changepassword", method = RequestMethod.PUT)
@@ -136,11 +138,11 @@ public class UserController {
     	HashMap<String, Object> response = new HashMap<String, Object>();
     	
     	response.put("success", false);
-    	AppUser appUser = appUserRepository.findById(id);  	
+    	AppUser appUser = userService.findById(id);  	
     	
     	if (appUser != null && bCryptPasswordEncoder.matches(oldPw, appUser.getPassword())) {
     		appUser.setPassword(bCryptPasswordEncoder.encode(newPw));
-    		appUserRepository.saveUser(appUser);
+    		userService.saveUser(appUser);
     		response.put("success", true);
     	}
     	
@@ -148,7 +150,18 @@ public class UserController {
     	return response;
     }
     
-    
-    
+    @RequestMapping(value = "/api/disabledUsers", method = RequestMethod.GET)
+    public HashMap<String, Object> getDisabledUsers(@RequestParam Long dept){
+    	HashMap<String, Object> response = new HashMap<String, Object>();
+    	
+    	//obtinem numarul de angajati care nu sunt activati din departamentul managerului
+    	Long countDisable = userService.countDisabledUser(dept);
+    	response.put("countDisabled", countDisable);
+    	
+    	List<DisabledUsers> disabledUsers = userService.getDisabledUsers(dept);
+    	response.put("disabledUsers", disabledUsers);
+    	
+    	return response;
+    }    
 
 }

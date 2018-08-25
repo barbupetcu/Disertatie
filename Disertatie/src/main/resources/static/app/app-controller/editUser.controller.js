@@ -18,7 +18,7 @@
         function initController() {
             loadCurrentUser();
         }
-
+        
         function loadCurrentUser() {
             UserService.GetUserById($rootScope.globals.currentUser.id)
             .then(function (response) {

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name = "DIC_PERSO")
 public class AppPerso {
 	@Id
+	@Column(name = "user_id")
     private Long id;
 	
 	@Column(name = "nume")
@@ -67,7 +68,7 @@ public class AppPerso {
 	}
 
 	public void setId(Long id) {
-		this.id = user.getId();
+		this.id = id;
 	}
 
 	public String getName() {

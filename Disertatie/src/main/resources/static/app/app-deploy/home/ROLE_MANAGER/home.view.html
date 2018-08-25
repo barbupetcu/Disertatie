@@ -6,12 +6,10 @@
                         <p class="h5">
                         Aprobare utilizatori
                         </p>
-                        <span class="badge badge-primary badge-pill">14</span>
+                        <span class="badge badge-primary badge-pill">{{vm.disabledUsers.countDisabled}}</span>
                     </div>
                     <div class="list-group list-group-flush listApproveUsers">
-                        <a href="#!/approveUser" class="list-group-item list-group-item-action">Cras justo odio</a>
-                        <a href="#!/approveUser" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                        <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
+                        <a ng-href="#!/approveUser" class="list-group-item list-group-item-action" ng-repeat="user in vm.disabledUsers.disabledUsers" ng-click='setSelectedId("user.id")'>{{user.perso.name}} {{user.perso.lastName}}</a>
                     </div>
                 </div>
         </div>
