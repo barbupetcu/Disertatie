@@ -162,6 +162,15 @@ public class UserController {
     	response.put("disabledUsers", disabledUsers);
     	
     	return response;
-    }    
+    }
+    
+    @RequestMapping(value = "/api/deleteUser", method= RequestMethod.DELETE)
+    public HashMap<String, Object> deleteUser(@RequestParam Long id) {
+    	HashMap<String, Object> response = new HashMap<String, Object>();
+    	
+    	userService.deleteUser(id);
+    	response.put("success", true);
+    	return response;
+    } 
 
 }

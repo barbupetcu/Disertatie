@@ -27,11 +27,7 @@
         }
 
         function setSelectedId(selectedId) {
-            DataService.setSelectedId(selectedId)
-        }
-
-        function deleteUser(id) {
-            
+            DataService.setSelectedId(selectedId);
         }
     }
 
