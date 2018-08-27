@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="form-actions" style="margin-top: 20px">
-            <button type="submit" class="btn btn-success" ng-disabled="form.$invalid || vm.dataLoadingUser">Salveaza
+            <button type="submit" class="btn btn-success" ng-disabled="form.$invalid || vm.dataLoadingUser || vm.dataLoadingPw">Salveaza
                 <i ng-if="vm.dataLoadingUser" class="fa fa-spinner fa-spin"></i>
             </button>
         </div>
@@ -101,8 +101,8 @@
             </div>
         </div>
         <div class="form-actions" style="margin-top: 20px">
-            <button type="submit" class="btn btn-success" ng-disabled="formPw.$invalid || vm.dataLoadingPw">Salveaza
-                <i ng-if="vm.dataLoadingPw" class="fa fa-spinner fa-spin"></i>
+            <button type="submit" class="btn btn-success" ng-disabled="formPw.$invalid || vm.dataLoadingPw || vm.dataLoadingUser">Salveaza
+                <i ng-if="vm.deleteUser" class="fa fa-spinner fa-spin"></i>
             </button>
             
         </div>
