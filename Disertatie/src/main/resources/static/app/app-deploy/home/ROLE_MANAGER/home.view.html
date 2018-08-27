@@ -9,7 +9,7 @@
                         <span class="badge badge-primary badge-pill">{{vm.disabledUsers.countDisabled}}</span>
                     </div>
                     <div class="list-group list-group-flush listApproveUsers">
-                        <a ng-href="#!/approveUser" class="list-group-item list-group-item-action" ng-repeat="user in vm.disabledUsers.disabledUsers" ng-click='setSelectedId("user.id")'>{{user.perso.name}} {{user.perso.lastName}}</a>
+                        <a ng-href="#!/approveUser" class="list-group-item list-group-item-action" ng-repeat="user in vm.disabledUsers.disabledUsers" ng-click="vm.setSelectedId(user.id)">{{user.perso.name}} {{user.perso.lastName}}</a>
                     </div>
                 </div>
         </div>
@@ -23,28 +23,27 @@
                     </p>
                     <span class="badge badge-primary badge-pill">14</span>
                 </div>
-            
                 <div class="list-group list-group-flush previewTasks">
                     <div class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Titlu task 1</h5>
-                        <small>intarziere: 3 zile</small>
+                            <h5 class="mb-1">Titlu task 1</h5>
+                            <small>intarziere: 3 zile</small>
                         </div>
                         <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                         <small>Proprietar: Bobi Petcu</small>
                     </div>
                     <div class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Titlu task 2</h5>
-                        <small class="text-muted">intarziere: 5 zile</small>
+                            <h5 class="mb-1">Titlu task 2</h5>
+                            <small class="text-muted">intarziere: 5 zile</small>
                         </div>
                         <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                         <small class="text-muted">Proprietar: Bobi Petcu</small>
                     </div>
                     <div class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Titlu task 3</h5>
-                        <small class="text-muted">intarziere: 5 zile</small>
+                            <h5 class="mb-1">Titlu task 3</h5>
+                            <small class="text-muted">intarziere: 5 zile</small>
                         </div>
                         <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                         <small class="text-muted">Proprietar: Bobi Petcu</small>

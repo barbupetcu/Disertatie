@@ -6,15 +6,16 @@
         .factory('DataService', DataService);
 
     function DataService() {
-        var selectedUser = null;
+        var data = {
+        };
   
         return {
     
             getSelectedId: function() {
-                return selectedUser;
+                return localStorage.getItem('selectedUser');
             },
-            setSelectedId: function(userId) {
-                selectedUser = userId;
+            setSelectedId: function(id) {
+                localStorage.setItem('selectedUser', id);
             }
         };
     }

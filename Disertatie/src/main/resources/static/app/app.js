@@ -27,11 +27,15 @@
             })
 
             .when('/approveUser', {
-                templateUrl: 'app/app-deploy/users/approveUser.view.html'
+                controller: 'AproveUserController',
+                templateUrl: 'app/app-deploy/users/approveUser.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/task', {
-                templateUrl: 'app/app-deploy/task/task.view.html'
+                controller: 'TaskController',
+                templateUrl: 'app/app-deploy/task/task.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/descTask', {
@@ -59,18 +63,20 @@
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
     function run($rootScope, $location, $cookies, $http) {
-        // keep user logged in after page refresh
+        // pastreaza userul logat dupa ce dam refresh la pagina (se recupereaza datele din cookies)
         $rootScope.globals = $cookies.getObject('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.authdata;
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a restricted page
+            
             $rootScope.isRestrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
 
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
+
+            // ne redirectioneaza catre login daca nu suntem logati
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
@@ -79,13 +85,14 @@
                 $rootScope.globals.currentUser ={};
             }
 
+            //ne redirectioneaza catre home-ul specific fiecarui tip de utilizator
             if(!restrictedPage && $rootScope.globals.currentUser.roles!= undefined){
                 if ($rootScope.globals.currentUser.roles.indexOf("ROLE_MANAGER")>=0 && $location.path()==="/"){
                     $location.path('/homeManager');
                 }
             }
             
-
+            //flagul evidentierea meniului activ
             $rootScope.isActiveNavBar = function (viewLocation) {
                 var active = (viewLocation === $location.path());
                 return active;
