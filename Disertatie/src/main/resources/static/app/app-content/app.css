@@ -30,6 +30,18 @@ padding-bottom: 10px;
     background-color: rgb(255, 255, 255);
     height: 200px;
 }
+.lvl-over {
+    border: 1px dashed #555 !important;
+  }
+  
+  .lvl-target {
+    background-color: #ddd; 
+    opacity: .5;
+  }
+  
+  [draggable] {
+    cursor: move;
+  }
 .comment-main{
 	background-color: rgb(148, 199, 219);
     box-shadow: 1px 2px 6px 2px #005B9A;

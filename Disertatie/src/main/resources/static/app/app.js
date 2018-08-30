@@ -38,6 +38,10 @@
                 controllerAs: 'vm'
             })
 
+            .when('/taskIteration', {
+                templateUrl: 'app/app-deploy/task/taskIteration.view.html'
+            })
+
             .when('/descTask', {
                 templateUrl: 'app/app-deploy/task/descTask.view.html'
             })

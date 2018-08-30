@@ -1,0 +1,53 @@
+
+<div class="container-fluid py-3"> 
+        <v class="row" ng-controller="ctrlDualList">
+              <div class="col-md-12 text-center"><h4>Drag &amp; Drop Pick List</h4><h6 class="small pb-4">Bootstrap 4 Beta</h6></div>
+              <div class="col-md-4 ml-auto">
+                <div class="list-group" id="list1" x-lvl-drop-target="true" x-on-drop="drop(dragEl, dropEl, bToA)">
+                  <a href="javascript:;" class="list-group-item active">Staff
+                    <label title="Toggle all" class="custom-control custom-checkbox float-right">
+                        <input type="checkbox" ng-click="toggleA()" ng-model="toggle" value="{{toggle}}" class="custom-control-input float-right">
+                        <span class="custom-control-indicator"></span>
+                     </label>
+                  </a>
+                  <a href="javascript:;" ng-repeat="user in listA" data-id="{{user.id}}" x-lvl-draggable="true" class="list-group-item list-group-item-action">{{user.firstName}}
+                      <small class="text-muted"><em>{{user.role}}</em></small>                    
+                      <label class="custom-control custom-checkbox float-right">
+                        <input type="checkbox" id="{{user.id}}" ng-click="selectedA.push(user.id)" name="selectedA[]" value="{{user.id}}" ng-checked="selectedA.indexOf(user.id) > -1" class="custom-control-input float-right">
+                        <span class="custom-control-indicator"></span>
+                      </label>
+                    </a>
+                </div>
+              </div><!--/col-4-->
+              <div class="col-md-2 my-auto text-center">
+                <div class="btn-group">
+                  <button title="Send to list 1" class="btn btn-default" ng-click="bToA()" id="btnA"><i class="fa fa-chevron-left"></i></button>
+                  <button title="Send to list 2" class="btn btn-default" ng-click="aToB()" id="btnB"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <p>
+                <small class="text-center">move from list-to-list</small>
+                </p>
+              </div><!--/col-2-->
+              <div class="col-md-4 mr-auto">
+                <div class="list-group" id="list2" x-lvl-drop-target="true" x-on-drop="drop(dragEl, dropEl, aToB)">
+                  <a href="javascript:;" class="list-group-item active">Team Members
+                    <label title="Toggle all" class="custom-control custom-checkbox float-right">
+                        <input type="checkbox" ng-click="toggleB()" ng-model="toggle" value="{{toggle}}" class="custom-control-input float-right">
+                        <span class="custom-control-indicator"></span>
+                     </label>
+                  </a>
+                  <a href="javascript:;" ng-repeat="user in listB" data-id="{{user.id}}" class="list-group-item list-group-item-action" x-lvl-draggable="true">{{user.firstName}}
+                      <small class="text-muted"><em>{{user.role}}</em></small>
+                      <label class="custom-control custom-checkbox float-right">
+                        <input type="checkbox" id="{{user.id}}" ng-click="selectedB.push(user.id)" name="selectedB[]" value="{{user.id}}" ng-checked="selectedB.indexOf(user.id) > -1" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                      </label>
+                  </a>
+                </div>
+              </div><!--/col-4-->
+        </div><!--/row-->
+  </div><!--/container-fluid-->
+    
+  
+  
+  
