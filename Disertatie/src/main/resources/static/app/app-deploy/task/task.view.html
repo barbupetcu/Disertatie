@@ -7,15 +7,15 @@
     <div class="row">
         <div class="col-4 listTasks">
             <div class="list-group" id="list-tab" role="tablist">
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target=".home123">Home</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target=".profiles123">Profile</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-messages">Messages</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-settings">Settings</button>
+                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-home" ng-click="vm.selectTask(1)">Home</button>
+                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-profiles" ng-click="vm.selectTask(2)">Profile</button>
+                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-messages" ng-click="vm.selectTask(3)">Messages</button>
+                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-settings" ng-click="vm.selectTask(4)">Settings</button>
             </div>
         </div>
         <div class="col-8 listTasks backgroundTasks">
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade home123" id="list-home" role="tabpanel">
+            <div class="tab-content" id="task-details">
+                <div class="tab-pane fade" id="list-home" role="tabpanel">
                     <table class="table table-borderless">
                         <tr>
                             <td>Descriere:
@@ -38,7 +38,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="tab-pane fade profiles123" id="list-profiles" role="tabpanel">
+                <div class="tab-pane fade" id="list-profiles" role="tabpanel">
                         Profile
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel">
@@ -168,23 +168,66 @@
             </div>
         </div>
     </div>
-
-    <div class="tab-content" id="nav-tabContent2">
-        <div class="tab-pane fade home123" id="comment-home">
-            Home
-        </div>
-        <div class="tab-pane fade profiles123" id="comment-profiles">
-            profiles
-        </div>
-        <div class="tab-pane fade" id="comment-messages">
-            messages
-        </div>
-        <div class="tab-pane fade" id="comment-settings">
-            settings
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-12 comment-main rounded">
+                <h5>Comentarii</h5>
+                <ul class="p-0">
+                    <li ng-show="vm.isActive(1)">
+                        <div class="row comment-box p-1 pt-3 pr-4">
+                            <div class="col-lg-1 col-1 user-img text-center">
+                                <div class="gavatar">PB</div>
+                            </div>
+                            <div class="col-lg-11 col-11 user-comment bg-light rounded pb-1">
+                                <div class="row">
+                                    <div class="col-lg-8 col-6 border-bottom pr-0">
+                                        <p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.sadfagasdgdasgsagawegafgadfbadf vadfvadfbabadfbadfbfdab fadbadbafbabadbafbabab fabadbabadba</p>
+                                    </div>
+                                    <div class="col-lg-4 col-6 border-bottom">
+                                        <p class="w-100 p-2 m-0"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span></p>
+                                    </div>
+                                </div> 
+                                <div class="user-comment-desc p-1 pl-2">
+                                    <p class="m-0 mr-2"><span><i class="fa fa-user comment-details" aria-hidden="true"></i></span>Petcu Barbu</p>                      
+                                    <p class="m-0 mr-2"><span><i class="fa fa-calendar comment-details" aria-hidden="true"></i></span>05/10/2018</p>                      
+                                </div>    
+                            </div>
+                        </div>
+                    </li>
+                    <li ng-show="vm.isActive(2)">
+                            <div class="row comment-box p-1 pt-3 pr-4">
+                                <div class="col-lg-1 col-1 user-img text-center">
+                                    <div class="gavatar">AP</div>
+                                </div>
+                                <div class="col-lg-11 col-11 user-comment bg-light rounded pb-1">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-6 border-bottom pr-0">
+                                            <p class="w-100 p-2 m-0">Comentarii task2</p>
+                                        </div>
+                                        <div class="col-lg-4 col-6 border-bottom">
+                                            <p class="w-100 p-2 m-0"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span></p>
+                                        </div>
+                                    </div> 
+                                    <div class="user-comment-desc p-1 pl-2">
+                                        <p class="m-0 mr-2"><span><i class="fa fa-user comment-details" aria-hidden="true"></i></span>Pirvu Alexandra</p>                      
+                                        <p class="m-0 mr-2"><span><i class="fa fa-calendar comment-details" aria-hidden="true"></i></span>05/10/2018</p>                      
+                                    </div>    
+                                </div>
+                            </div>
+                        </li>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-11 col-11">
+                            <input type="text" class="form-control" placeholder="adauga comentarii ...">
+                        </div>
+                        <div class="col-lg-1 col-2 send-icon text-center">
+                            <a href="http://nicesnippets.com/" target="_blank"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
         </div>
     </div>
 
-    
-
-    
 </div>

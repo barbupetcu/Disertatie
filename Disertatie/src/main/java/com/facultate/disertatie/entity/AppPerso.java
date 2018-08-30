@@ -48,7 +48,7 @@ public class AppPerso {
 	private Dept dept;
 	
 	@JsonIgnore
-    @Column(name="created")
+    @Column(name="created", updatable=false)
 	@CreationTimestamp
 	private LocalDateTime createDateTime;
     
