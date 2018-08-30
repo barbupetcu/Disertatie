@@ -15,6 +15,7 @@
         service.Create = Create;
         service.ChangePassword = ChangePassword;
         service.LoadDisabledUsers = LoadDisabledUsers;
+        service.DeleteUser = DeleteUser;
 
 
         return service;
@@ -61,14 +62,18 @@
             }).then(handleSuccess, handleError('Eroare la incarcarea utilizatorilor neactivati'));
         }
 
-
-
-
-        function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+        function DeleteUser(id) {
+            return $http({
+                url: '/api/deleteUser',
+                method: "DELETE",
+                params: {id: id}
+            })
+                .then(handleSuccess, handleError('Utilizatorul nu a putut fi sters'));
         }
 
-        // private functions
+
+
+        
 
         function handleSuccess(res) {
             return res.data;

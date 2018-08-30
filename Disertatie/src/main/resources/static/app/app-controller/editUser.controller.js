@@ -35,7 +35,7 @@
             UserService.EditUser(vm.user)
             .then(function (response) {
                 if (response.success) {
-                    FlashService.Success('Datele au inregistrate, va rugam sa va logati din nou', true);
+                    FlashService.Success('Datele au fost inregistrate, va rugam sa va logati din nou', true);
                     $location.path('/login');
                 } else {
                     FlashService.Error(response.message);

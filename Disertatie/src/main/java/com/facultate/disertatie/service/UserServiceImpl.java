@@ -72,4 +72,8 @@ public class UserServiceImpl {
 		return userRepository.findByEnabledAndPerso_Dept_deptId(false, deptId);
     	
     }
+    
+    public void deleteUser(Long id) {
+    	userRepository.deleteById(id);;
+    }
 }
