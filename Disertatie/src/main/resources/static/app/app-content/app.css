@@ -30,3 +30,16 @@ padding-bottom: 10px;
     background-color: rgb(255, 255, 255);
     height: 200px;
 }
+
+.lvl-over {
+    border: 1px dashed #555 !important;
+  }
+  
+  .lvl-target {
+    background-color: #ddd; 
+    opacity: .5;
+  }
+  
+  [draggable] {
+    cursor: move;
+  }
