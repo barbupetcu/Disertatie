@@ -28,7 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 
 		web.ignoring()
-				.antMatchers("/api/depts","/favicon.ico", "/error", "/", "/index.html", "/app/**", "/register", "/authenticate", "/login");
+				//resurse de logare
+				.antMatchers("/register", "/authenticate", "/login",
+						//resurse utilizate pentru pornirea aplicatiei
+						"/api/depts","/favicon.ico", "/error", "/", "/index.html", "/app/**");
 	}
 
 

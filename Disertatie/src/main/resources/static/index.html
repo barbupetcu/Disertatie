@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div ng-if="isRestrictedPage" ng-include src="'app/include/header.html'"></div>
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-            <div ng-view ng-class="{'page-settings': isRestrictedPage}"></div>
+            <div ng-view class ="rounded" ng-class="{'page-settings': isRestrictedPage}"></div>
         </div>
     </div>
 
