@@ -33,15 +33,18 @@ public class JWTFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
+		//recuperarea header-ului din request
 		String authHeader = request.getHeader(AUTHORIZATION_HEADER);
-		//String path= request.getRequestURL().toString();
+		//verificam ca tokenul primit este de tip JWT
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");
 		} else {
 			try {
+				//parsarea tokenului
 				String token = authHeader.substring(7);
 				Claims claims = Jwts.parser().setSigningKey(TOKEN_KEY).parseClaimsJws(token).getBody();
 				request.setAttribute("claims", claims);
+				//delegarea atributelor din token catre SecurityContextHolder
 				SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));
 				filterChain.doFilter(req, res);
 			} catch (SignatureException e) {

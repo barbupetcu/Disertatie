@@ -50,7 +50,7 @@ public class AppUser {
     private boolean enabled;
     
     @JsonIgnore
-    @Column(name="created")
+    @Column(name="created", updatable=false)
 	@CreationTimestamp
 	private LocalDateTime createDateTime;
     
