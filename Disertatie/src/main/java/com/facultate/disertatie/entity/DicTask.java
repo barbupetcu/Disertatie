@@ -51,19 +51,19 @@ public class DicTask{
 	private LocalDateTime modified;
     
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="DIFFICULTY")
     private RefDifficulty difficulty;
     
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="PRIORITY")
     private RefPriority priority;
     
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="STATUS")
     private RefTaskStatus status;
 	
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="DELAY")
     private RefTaskEnd end_status;
 
 	public long getId() {
