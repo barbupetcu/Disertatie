@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.facultate.disertatie.entity.AppPerso;
+import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
 import com.facultate.disertatie.projection.DisabledUsers;
@@ -60,7 +60,7 @@ public class UserController {
 	            tokenMap.put("success", true);
 	            
 	            
-	            AppPerso appPerso = appUser.getPerso();
+	            DicPerso appPerso = appUser.getPerso();
 	            
 	            //adaugam in raspuns elementele care vor fi stocate permanent in partea de client
 	            tokenMap.put("username", appUser.getUsername());
