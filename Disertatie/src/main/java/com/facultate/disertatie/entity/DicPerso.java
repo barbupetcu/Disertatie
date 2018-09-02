@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "DIC_PERSO")
-public class AppPerso {
+public class DicPerso {
 	@Id
 	@Column(name = "user_id")
     private Long id;

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.facultate.disertatie.entity.AppPerso;
+import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
 import com.facultate.disertatie.projection.DisabledUsers;
@@ -31,7 +31,7 @@ public class UserServiceImpl {
 
         customRole.add(roleRepository.findByroleName(roleName));
         user.setRoles(customRole);
-        AppPerso appPerso = user.getPerso();
+        DicPerso appPerso = user.getPerso();
         appPerso.setUser(user);
         user.setPerso(appPerso);
         

@@ -27,18 +27,18 @@ public class Dept {
 	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinTable(name = "dept_manager", joinColumns = @JoinColumn(name = "dept_id"), inverseJoinColumns = @JoinColumn(name = "manager_id"))
-	private AppPerso manager;
+	private DicPerso manager;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="dept", fetch=FetchType.LAZY)
-	private Set<AppPerso> angajati;
+	private Set<DicPerso> angajati;
 	
-	public Set<AppPerso> getAngajati() {
+	public Set<DicPerso> getAngajati() {
 		
 		return angajati;
 	}
 
-	public void setAngajati(Set<AppPerso> angajati) {
+	public void setAngajati(Set<DicPerso> angajati) {
 		this.angajati = angajati;
 	}
 
@@ -58,11 +58,11 @@ public class Dept {
 		this.numeDept = numeDept;
 	}
 
-	public AppPerso getManager() {
+	public DicPerso getManager() {
 		return manager;
 	}
 
-	public void setManager(AppPerso manager) {
+	public void setManager(DicPerso manager) {
 		this.manager = manager;
 	}
 	

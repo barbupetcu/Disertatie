@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="id_user_seq")
-	@SequenceGenerator(name="id_user_seq", sequenceName = "id_user_seq", allocationSize=20)
+	@SequenceGenerator(name="id_user_seq", sequenceName = "id_user_seq", allocationSize=1)
 	@Column(name = "id", updatable = false, nullable = false)
     private Long id;
 	
@@ -66,13 +66,13 @@ public class AppUser {
     
     @JsonProperty(value="perso")
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="user", cascade=CascadeType.ALL)
-	private AppPerso perso;
+	private DicPerso perso;
   
-    public AppPerso getPerso() {
+    public DicPerso getPerso() {
 		return perso;
 	}
 
-	public void setPerso(AppPerso perso) {
+	public void setPerso(DicPerso perso) {
 		this.perso = perso;
 	}
 
