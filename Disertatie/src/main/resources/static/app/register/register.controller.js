@@ -43,7 +43,7 @@
                         vm.dataLoading = false;
                     }
                 });
-        }
+        };
     }
 
 })();

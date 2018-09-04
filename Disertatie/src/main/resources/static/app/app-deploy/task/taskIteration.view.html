@@ -1,53 +1,93 @@
-
-<div class="container-fluid py-3"> 
-        <v class="row" ng-controller="ctrlDualList">
-              <div class="col-md-12 text-center"><h4>Drag &amp; Drop Pick List</h4><h6 class="small pb-4">Bootstrap 4 Beta</h6></div>
-              <div class="col-md-4 ml-auto">
-                <div class="list-group" id="list1" x-lvl-drop-target="true" x-on-drop="drop(dragEl, dropEl, bToA)">
-                  <a href="javascript:;" class="list-group-item active">Staff
-                    <label title="Toggle all" class="custom-control custom-checkbox float-right">
-                        <input type="checkbox" ng-click="toggleA()" ng-model="toggle" value="{{toggle}}" class="custom-control-input float-right">
-                        <span class="custom-control-indicator"></span>
-                     </label>
-                  </a>
-                  <a href="javascript:;" ng-repeat="user in listA" data-id="{{user.id}}" x-lvl-draggable="true" class="list-group-item list-group-item-action">{{user.firstName}}
-                      <small class="text-muted"><em>{{user.role}}</em></small>                    
-                      <label class="custom-control custom-checkbox float-right">
-                        <input type="checkbox" id="{{user.id}}" ng-click="selectedA.push(user.id)" name="selectedA[]" value="{{user.id}}" ng-checked="selectedA.indexOf(user.id) > -1" class="custom-control-input float-right">
-                        <span class="custom-control-indicator"></span>
-                      </label>
-                    </a>
-                </div>
-              </div><!--/col-4-->
-              <div class="col-md-2 my-auto text-center">
-                <div class="btn-group">
-                  <button title="Send to list 1" class="btn btn-default" ng-click="bToA()" id="btnA"><i class="fa fa-chevron-left"></i></button>
-                  <button title="Send to list 2" class="btn btn-default" ng-click="aToB()" id="btnB"><i class="fa fa-chevron-right"></i></button>
-                </div>
-                <p>
-                <small class="text-center">move from list-to-list</small>
-                </p>
-              </div><!--/col-2-->
-              <div class="col-md-4 mr-auto">
-                <div class="list-group" id="list2" x-lvl-drop-target="true" x-on-drop="drop(dragEl, dropEl, aToB)">
-                  <a href="javascript:;" class="list-group-item active">Team Members
-                    <label title="Toggle all" class="custom-control custom-checkbox float-right">
-                        <input type="checkbox" ng-click="toggleB()" ng-model="toggle" value="{{toggle}}" class="custom-control-input float-right">
-                        <span class="custom-control-indicator"></span>
-                     </label>
-                  </a>
-                  <a href="javascript:;" ng-repeat="user in listB" data-id="{{user.id}}" class="list-group-item list-group-item-action" x-lvl-draggable="true">{{user.firstName}}
-                      <small class="text-muted"><em>{{user.role}}</em></small>
-                      <label class="custom-control custom-checkbox float-right">
-                        <input type="checkbox" id="{{user.id}}" ng-click="selectedB.push(user.id)" name="selectedB[]" value="{{user.id}}" ng-checked="selectedB.indexOf(user.id) > -1" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                      </label>
-                  </a>
-                </div>
-              </div><!--/col-4-->
-        </div><!--/row-->
-  </div><!--/container-fluid-->
-    
-  
-  
-  
+<div class="row" style="padding-top: 25px; padding-bottom: 25px">
+  <div class="col-md-12 text-center" style="margin-bottom: 10px;">
+    <h4>Task Iteration</h4>
+  </div>
+  <div class="col-md-3 ml-auto">
+    <div class="list-group taskIteration">
+      <a class="list-group-item active text-light">To Do
+        <div class="btn-group float-right">
+            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedA, vm.listA)"><i class="fa fa-check"></i></button>
+            <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedA=[]"><i class="fa fa-times-circle-o"></i></button>
+        </div>
+      </a>
+      <a ng-repeat="task in vm.listA track by task.id" data-id="{{task.id}}" ng-click="vm.toggleSelectionA(task.id)" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{task.title}}</h5>
+          <small>
+            <em>Deadline: {{task.deadline | date: 'dd MMM yyyy'}}</em>
+          </small>
+        </div>
+        <small>
+            <em>Proprietar: {{task.user.name}} {{task.user.lastName}}</em>
+        </small>
+        <label class="float-right">
+          <i class="fa fa-check-square-o" ng-show="vm.selectedA.indexOf(task.id) > -1"></i>
+        </label>
+      </a>
+    </div>
+  </div><!--/col-4-->
+  <div class="col-md-1 my-auto text-center">
+    <div class="btn-group">
+      <button title="Send to In Progress" class="btn btn-outline-danger" ng-click="vm.bToA()" id="btnA"><i class="fa fa-chevron-left"></i></button>
+      <button title="Send to To Do" class="btn btn-outline-success" ng-click="vm.aToB()" id="btnB"><i class="fa fa-chevron-right"></i></button>
+    </div>
+  </div><!--/col-1-->
+  <div class="col-md-3">
+    <div class="list-group taskIteration">
+      <a class="list-group-item active text-light">In Progress
+        <div class="btn-group float-right">
+            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedB, vm.listB)"><i class="fa fa-check"></i></button>
+            <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedB=[]"><i class="fa fa-times-circle-o"></i></button>
+        </div>
+      </a>
+      <a ng-repeat="task in vm.listB track by task.id" data-id="{{task.id}}" ng-click="vm.toggleSelectionB(task.id)" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{task.title}}</h5>
+          <small class="mb-1">
+            <em>Deadline: {{task.deadline | date: 'dd MMM yyyy'}}</em>
+          </small>
+        </div>
+        <small>
+            <em>Proprietar: {{task.user.name}} {{task.user.lastName}}</em>
+        </small>
+        <label class="float-right">
+          <i class="fa fa-check-square-o" ng-show="vm.selectedB.indexOf(task.id) > -1"></i>
+        </label>
+      </a>
+    </div>
+  </div><!--/col-4-->
+  <div class="col-md-1 my-auto text-center">
+      <div class="btn-group">
+        <button title="Send to Done" class="btn btn-outline-danger" ng-click="vm.cToB()" id="btnA"><i class="fa fa-chevron-left"></i></button>
+        <button title="Send to In Progress" class="btn btn-outline-success" ng-click="vm.bToC()" id="btnB"><i class="fa fa-chevron-right"></i></button>
+      </div>
+  </div><!--/col-1-->
+  <div class="col-md-3 mr-auto">
+      <div class="list-group taskIteration">
+        <a class="list-group-item active text-light">Done
+          <div class="btn-group float-right">
+              <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedC, vm.listC)"><i class="fa fa-check"></i></button>
+              <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedC=[]"><i class="fa fa-times-circle-o"></i></button>
+          </div>
+        </a>
+        <a ng-repeat="task in vm.listC track by task.id" data-id="{{task.id}}" ng-click="vm.toggleSelectionC(task.id)" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{task.title}}</h5>
+            <small class="mb-1">
+              <em>Deadline: {{task.deadline | date: 'dd MMM yyyy'}}</em>
+            </small>
+          </div>
+          <small>
+              <em>Proprietar: {{task.user.name}} {{task.user.lastName}}</em>
+          </small>
+          <label class="float-right">
+            <i class="fa fa-check-square-o" ng-show="vm.selectedC.indexOf(task.id) > -1"></i>
+          </label>
+        </a>
+      </div>
+    </div><!--/col-4-->
+    <div class="col-md-12 text-center" style="padding: 25px;">
+        <button title="Send to Done" class="btn btn-success" ng-click="vm.sendStatus()" ng-disabled="vm.dataModif || vm.dataLoading">
+          Salveaza modificarile <i ng-class="vm.dataLoading? 'fa fa-spinner fa-spin':'fa fa-paper-plane'"></i></button>
+    </div>
+</div>

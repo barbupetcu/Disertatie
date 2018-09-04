@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
+import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.projection.DisabledUsers;
+import com.facultate.disertatie.projection.TeamUsers;
 import com.facultate.disertatie.security.JWTFilter;
-import com.facultate.disertatie.service.UserServiceImpl;
+import com.facultate.disertatie.service.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,7 +32,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserController {
  
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
@@ -171,6 +172,14 @@ public class UserController {
     	userService.deleteUser(id);
     	response.put("success", true);
     	return response;
-    } 
+    }
+    
+    @RequestMapping(value = "/api/getusers", method = RequestMethod.GET)
+    public List<TeamUsers> getEnabledUsers(@RequestParam Long dept){
+    	
+    	List<TeamUsers> users = userService.getEnabledUsers(dept);
+    	
+    	return users;
+    }
 
 }

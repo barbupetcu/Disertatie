@@ -13,24 +13,9 @@
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
 
-        initController();
-
-        function initController() {
-            loadCurrentUser();
-            loadAllUsers();
-        }
-
-        function loadCurrentUser() {
+        (function initController() {
             
-        }
-
-        function loadAllUsers() {
-            
-        }
-
-        function deleteUser(id) {
-            
-        }
+        })();
     }
 
 })();

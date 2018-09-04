@@ -5,8 +5,9 @@
         .module('app')
         .factory('DataService', DataService);
 
-    function DataService() {
+    function DataService(_) {
         var data = {
+            activeTask : ''
         };
   
         return {
@@ -16,7 +17,14 @@
             },
             setSelectedId: function(id) {
                 localStorage.setItem('selectedUser', id);
+            },
+            getActiveTask: function(){
+                return data.activeTask;
+            },
+            setActiveTask: function(idTask){
+                data.activeTask = idTask;
             }
+            
         };
     }
 })();

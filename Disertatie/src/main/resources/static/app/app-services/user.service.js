@@ -16,9 +16,50 @@
         service.ChangePassword = ChangePassword;
         service.LoadDisabledUsers = LoadDisabledUsers;
         service.DeleteUser = DeleteUser;
-
-
+        service.getPriority = getPriority;
+        service.getTeamUsers = getTeamUsers;
+        service.addTask = addTask;
+        service.getTask = getTask;
+        service.getTasks = getTasks;
+        
         return service;
+
+        function getTasks(sprintId) {
+            return $http({
+                url: '/api/gettasks',
+                method: "GET",
+                params: {sprintId: sprintId}
+            }).then(handleSuccess, handleError('Task-urile nu au putut fi incarcate'));
+        }
+
+        function getTask(taskId) {
+            return $http({
+                url: '/api/gettask',
+                method: "GET",
+                params: {id: taskId}
+            }).then(handleSuccess, handleError('Detaliile task-ului nu au putut fi incarcate'));
+        }
+
+        function addTask(task) {
+            var test= JSON.stringify(task);
+        	return $http.post('/api/addtask', JSON.stringify(task)).then(handleSuccess, handleError('Eroare la crearea task-ului'));
+        }
+
+        function getPriority() {
+            return $http({
+                url: '/api/priority',
+                method: "GET"
+            }).then(handleSuccess, handleError('Lista prioritatilor nu poate fi incarcata'));
+        }
+
+        function getTeamUsers(dept) {
+            return $http({
+                url: '/api/getusers',
+                method: "GET",
+                params: {dept: dept}
+            }).then(handleSuccess, handleError('Utilizatorii nu a putut fi incarcati'));
+        }
+
 
         function getDepts() {
             return $http({

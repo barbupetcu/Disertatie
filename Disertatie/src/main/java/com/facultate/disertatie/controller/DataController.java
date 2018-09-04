@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.facultate.disertatie.entity.Dept;
+import com.facultate.disertatie.entity.RefPriority;
 import com.facultate.disertatie.repository.DeptRepository;
+import com.facultate.disertatie.repository.RefPriorityRepository;
 
 @RestController
 public class DataController{
 	
 	@Autowired
 	private DeptRepository deptRepository;
+	
+	@Autowired
+	private RefPriorityRepository refPriorityRepository;
 	
 	@RequestMapping(value = "/api/depts", method = RequestMethod.GET)
 	public HashMap<String, Object> getDepts(){
@@ -32,5 +37,11 @@ public class DataController{
 		return response;
 	}
 	
-	
+	@RequestMapping(value = "/api/priority", method = RequestMethod.GET)
+	public List<RefPriority> getPriority(){
+
+		List<RefPriority> priority = refPriorityRepository.findAll();
+
+		return priority;
+	}
 }

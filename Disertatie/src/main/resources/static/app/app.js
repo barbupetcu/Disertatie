@@ -2,12 +2,20 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial'])
+        .module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngMaterial', 'underscore', 'ngSanitize'])
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
-    function config($routeProvider, $locationProvider) {
+    config.$inject = ['$routeProvider', '$mdDateLocaleProvider'];
+    function config($routeProvider, $mdDateLocaleProvider) {
+        /**
+         * @param date {Date}
+         * @returns {string} string representation of the provided date
+         */
+        $mdDateLocaleProvider.formatDate = function(date) {
+            return date ? moment(date).format('DD MMM YYYY') : '';
+        };
+
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
@@ -39,7 +47,9 @@
             })
 
             .when('/taskIteration', {
-                templateUrl: 'app/app-deploy/task/taskIteration.view.html'
+                controller: 'IterationController',
+                templateUrl: 'app/app-deploy/task/taskIteration.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/descTask', {
