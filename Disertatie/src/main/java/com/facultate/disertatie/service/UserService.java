@@ -9,17 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
+import com.facultate.disertatie.entity.DicPerso;
 import com.facultate.disertatie.projection.DisabledUsers;
+import com.facultate.disertatie.projection.TeamUsers;
 import com.facultate.disertatie.repository.AppRoleRepository;
 import com.facultate.disertatie.repository.AppUserRepository;
+import com.facultate.disertatie.repository.DicPersoRepository;
 
 @Service
-public class UserServiceImpl {
+public class UserService {
     @Autowired
     private AppUserRepository userRepository;
+    @Autowired
+    private DicPersoRepository dicPersoRepository;
     @Autowired
     private AppRoleRepository roleRepository;
     @Autowired
@@ -70,7 +74,10 @@ public class UserServiceImpl {
     
     public List<DisabledUsers> getDisabledUsers(Long deptId){
 		return userRepository.findByEnabledAndPerso_Dept_deptId(false, deptId);
-    	
+    }
+    
+    public List<TeamUsers> getEnabledUsers(Long deptId){
+		return dicPersoRepository.findByDept_deptIdAndUser_enabled(deptId, true);
     }
     
     public void deleteUser(Long id) {

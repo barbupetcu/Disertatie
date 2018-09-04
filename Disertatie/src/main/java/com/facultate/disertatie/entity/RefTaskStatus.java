@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "ref_task_status")
 public class RefTaskStatus{
@@ -12,6 +14,7 @@ public class RefTaskStatus{
 	@Column(name = "id", nullable = false, updatable=false)
 	private int id;
 	
+	@JsonIgnore
 	@Column(name ="name")
 	private String name;
 

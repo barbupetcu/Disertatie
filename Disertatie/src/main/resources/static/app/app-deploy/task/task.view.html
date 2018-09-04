@@ -53,122 +53,13 @@
     <!-- Button trigger modal -->
     <div class="row" style="padding-top: 20px" style="padding-bottom: 20px">
         <div class="col-6 col-sm-4">
-            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#adaugareTask">Adauga</button>
+            <button type="submit" class="btn btn-success" ng-click="vm.saveTask(false)">Adauga</button>
             <button type="submit" class="btn btn-danger">Sterge</button>
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editareTask">Editeaza</button>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="adaugareTask" tabindex="-1" role="dialog" aria-labelledby="adaugareTaskTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Adaugare Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Titlu task</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Deadline</label>
-                        <input type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Prioritate</label>
-                        <select class="form-control" id="prioritate">
-                            <option>mica</option>
-                            <option>medie</option>
-                            <option>mare</option>
-                            <option>urgent</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Asignare user</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option selected></option>
-                            <option>Bobby Petcu</option>
-                            <option>Alexandra Pirvu</option>
-                            <option>Catalina Buriceanu</option>
-                            <option>Andrei Matache</option>
-                            <option>Mariana Popescu</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Descriere Task</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="editareTask" tabindex="-1" role="dialog" aria-labelledby="editareTaskTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Editare Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Titlu task</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Deadline</label>
-                        <input type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Prioritate</label>
-                        <select class="form-control" id="prioritate">
-                            <option>mica</option>
-                            <option>medie</option>
-                            <option>mare</option>
-                            <option>urgent</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Asignare user</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option selected></option>
-                            <option>Bobby Petcu</option>
-                            <option>Alexandra Pirvu</option>
-                            <option>Catalina Buriceanu</option>
-                            <option>Andrei Matache</option>
-                            <option>Mariana Popescu</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Descriere Task</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-            </div>
+            <button type="submit" class="btn btn-primary" ng-click="vm.saveTask(true)">Editeaza</button>
         </div>
     </div>
     
+    <!--Comments-->
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-10 offset-lg-1 col-12 comment-main rounded">

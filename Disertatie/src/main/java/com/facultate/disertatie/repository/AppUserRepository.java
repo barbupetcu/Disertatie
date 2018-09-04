@@ -9,6 +9,7 @@ import com.facultate.disertatie.projection.DisabledUsers;
 
 
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+	
 	public AppUser findByUsername(String username);
 	
 	public Long countByEnabledAndPerso_Dept_deptId(boolean enabled, long deptId);
