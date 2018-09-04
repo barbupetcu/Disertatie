@@ -7,7 +7,7 @@ padding-bottom: 10px;
 }
 .page-settings{
     margin-top:10px;
-    background-color: rgb(194, 196, 196);
+    background-color: rgb(216, 218, 218);
     margin-bottom:10px;
 
 }
@@ -188,4 +188,37 @@ padding-bottom: 10px;
     display : flex;
     align-items : center;
     justify-content: center;
+}
+.fade.in {
+    opacity: 1;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+       -o-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.taskuriToDo {
+    background-color: #9cdffa
+}
+
+.taskuriInProgress {
+    background-color: #faf9be
+}
+
+.taskuriDone {
+    background-color: #8aff6d
+}
+
+.taskIteration{
+    max-height: 400px;
+    overflow-y: auto;
+    height: 400px;
+    background-color: white;
 }

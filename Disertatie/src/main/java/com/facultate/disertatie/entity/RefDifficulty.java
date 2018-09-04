@@ -15,7 +15,7 @@ public class RefDifficulty{
 	@Column(name ="name")
 	private String name;
 	
-	@Column(name="quota")
+	@Column(name="quote")
 	private int quota;
 
 	public int getId() {

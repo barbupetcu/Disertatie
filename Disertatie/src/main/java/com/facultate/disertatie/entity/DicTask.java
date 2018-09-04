@@ -62,9 +62,18 @@ public class DicTask{
     @JoinColumn(name="STATUS")
     private RefTaskStatus status;
 	
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="DELAY")
     private RefTaskEnd end_status;
+    
+    @ManyToOne
+    @JoinColumn(name="TASK_ITERATION")
+    private DicTaskIteration taskIteration;
+    
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private DicPerso user;
 
 	public long getId() {
 		return id;
@@ -153,5 +162,21 @@ public class DicTask{
 	public void setEnd_status(RefTaskEnd end_status) {
 		this.end_status = end_status;
 	}
-        
+
+	public DicTaskIteration getTaskIteration() {
+		return taskIteration;
+	}
+
+	public void setTaskIteration(DicTaskIteration taskIteration) {
+		this.taskIteration = taskIteration;
+	}
+
+	public DicPerso getUser() {
+		return user;
+	}
+
+	public void setUser(DicPerso user) {
+		this.user = user;
+	}
+		
 }
