@@ -21,15 +21,32 @@
         service.addTask = addTask;
         service.getTask = getTask;
         service.getTasks = getTasks;
+        service.sendTasks = sendTasks;
+        service.getDifficulty=getDifficulty;
+        service.getIteration=getIteration;
+        service.getTasksByDept=getTasksByDept;
+        
         
         return service;
+
+        function sendTasks(tasks) {
+            return $http.put('/api/sendtasks', JSON.stringify(tasks)).then(handleSuccessWithFlag, handleError('Eroare la crearea task-ului'));
+        }
 
         function getTasks(sprintId) {
             return $http({
                 url: '/api/gettasks',
                 method: "GET",
                 params: {sprintId: sprintId}
-            }).then(handleSuccess, handleError('Task-urile nu au putut fi incarcate'));
+            }).then(handleSuccessWithFlag, handleError('Task-urile nu au putut fi incarcate'));
+        }
+
+        function getTasksByDept(deptId) {
+            return $http({
+                url: '/api/gettasksByDept',
+                method: "GET",
+                params: {deptId: deptId}
+            }).then(handleSuccessWithFlag, handleError('Task-urile nu au putut fi incarcate'));
         }
 
         function getTask(taskId) {
@@ -41,7 +58,6 @@
         }
 
         function addTask(task) {
-            var test= JSON.stringify(task);
         	return $http.post('/api/addtask', JSON.stringify(task)).then(handleSuccess, handleError('Eroare la crearea task-ului'));
         }
 
@@ -50,6 +66,20 @@
                 url: '/api/priority',
                 method: "GET"
             }).then(handleSuccess, handleError('Lista prioritatilor nu poate fi incarcata'));
+        }
+
+        function getDifficulty() {
+            return $http({
+                url: '/api/difficulty',
+                method: "GET"
+            }).then(handleSuccess, handleError('Lista dificultatilor nu poate fi incarcata'));
+        }
+
+        function getIteration() {
+            return $http({
+                url: '/api/iteration',
+                method: "GET"
+            }).then(handleSuccess, handleError('Lista iteratiilor nu poate fi incarcata'));
         }
 
         function getTeamUsers(dept) {
@@ -115,6 +145,10 @@
 
 
         
+
+        function handleSuccessWithFlag(res) {
+            return {success:true, data: res.data};
+        }
 
         function handleSuccess(res) {
             return res.data;

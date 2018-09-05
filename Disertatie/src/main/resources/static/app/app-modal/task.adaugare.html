@@ -25,6 +25,11 @@
             <span ng-show="formAdaugareTask.deadlineTask.$dirty && formAdaugareTask.deadlineTask.$error.required" class="text-danger">Deadline-ul este obligatoriu</span>
         </div>
         <div class="form-group">
+                <label for="dificultate">Prioritate</label>
+                <select class="form-control" id="dificultate" ng-model="vm.newTask.difficulty" ng-options="item as item.name for item in vm.difficulty track by item.id" required>
+                </select>
+        </div>
+        <div class="form-group">
             <label for="prioritate">Prioritate</label>
             <select class="form-control" id="prioritate" ng-model="vm.newTask.priority" ng-options="item as item.name for item in vm.priority track by item.id" required>
             </select>
@@ -33,6 +38,11 @@
             <label for="userTask">Asignare user</label>
             <select class="form-control" id="userTask" ng-model="vm.newTask.user" ng-options="item as item.name+' '+ item.lastName for item in vm.teamUsers track by item.id" required>
             </select>
+        </div>
+        <div class="form-group">
+                <label for="iteratie">Iteratie</label>
+                <select class="form-control" id="iteratie" ng-model="vm.newTask.taskIteration" ng-options="item as (item.startDate | date: 'dd MMM yyyy') + ' - '+ (item.endDate | date: 'dd MMM yyyy') for item in vm.interation track by item.id" required>
+                </select>
         </div>
         <div class="form-group">
             <label for="descriptionTask">Descriere Task</label>

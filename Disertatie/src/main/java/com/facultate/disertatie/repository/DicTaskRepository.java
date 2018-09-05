@@ -12,4 +12,6 @@ public interface DicTaskRepository extends JpaRepository<DicTask, Long> {
 	
 	public DicTask findById(long id);
 	
+	public List<DicTask> findByUser_Dept_deptId(long id);
+	
 }

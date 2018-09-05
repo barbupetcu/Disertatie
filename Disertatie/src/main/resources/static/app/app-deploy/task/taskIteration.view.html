@@ -1,4 +1,4 @@
-<div class="row" style="padding-top: 25px; padding-bottom: 25px">
+<div id="popupContainer" class="row" style="padding-top: 25px; padding-bottom: 25px">
   <div class="col-md-12 text-center" style="margin-bottom: 10px;">
     <h4>Task Iteration</h4>
   </div>
@@ -6,8 +6,8 @@
     <div class="list-group taskIteration">
       <a class="list-group-item active text-light">To Do
         <div class="btn-group float-right">
-            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedA, vm.listA)"><i class="fa fa-check"></i></button>
-            <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedA=[]"><i class="fa fa-times-circle-o"></i></button>
+            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedA, vm.listA, false);vm.selectedB=[];vm.selectedC=[];"><i class="fa fa-check"></i></button>
+            <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedA=[];vm.dataChecked=true;"><i class="fa fa-times-circle-o"></i></button>
         </div>
       </a>
       <a ng-repeat="task in vm.listA track by task.id" data-id="{{task.id}}" ng-click="vm.toggleSelectionA(task.id)" class="list-group-item list-group-item-action">
@@ -25,18 +25,26 @@
         </label>
       </a>
     </div>
+    <div style="padding: 25px; text-align: center">
+        <button title="Doar task-urile din To Do pot fi asignate" class="btn btn-info" ng-disabled="vm.dataChecked || vm.dataLoading || vm.listModif" id="usersDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Actualizeaza userul <i ng-class="vm.dataLoading? 'fa fa-spinner fa-spin':'fa fa-users'"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="usersDropDown">
+            <a class="dropdown-item" ng-repeat="user in vm.taskUsers track by user.id" ng-click="vm.changeUser(user, $event)">{{user.name}} {{user.lastName}}</a>
+        </div>
+    </div>
   </div><!--/col-4-->
   <div class="col-md-1 my-auto text-center">
     <div class="btn-group">
       <button title="Send to In Progress" class="btn btn-outline-danger" ng-click="vm.bToA()" id="btnA"><i class="fa fa-chevron-left"></i></button>
-      <button title="Send to To Do" class="btn btn-outline-success" ng-click="vm.aToB()" id="btnB"><i class="fa fa-chevron-right"></i></button>
+      <button title="Send to To Do" class="btn btn-outline-success" ng-click="vm.aToB($event)" id="btnB"><i class="fa fa-chevron-right"></i></button>
     </div>
   </div><!--/col-1-->
   <div class="col-md-3">
     <div class="list-group taskIteration">
       <a class="list-group-item active text-light">In Progress
         <div class="btn-group float-right">
-            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedB, vm.listB)"><i class="fa fa-check"></i></button>
+            <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedB, vm.listB, true);vm.selectedA=[];vm.selectedC=[];"><i class="fa fa-check"></i></button>
             <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedB=[]"><i class="fa fa-times-circle-o"></i></button>
         </div>
       </a>
@@ -55,6 +63,10 @@
         </label>
       </a>
     </div>
+    <div style="padding: 25px; text-align: center">
+        <button class="btn btn-success" ng-click="vm.sendStatus()" ng-disabled="vm.dataModif || vm.dataLoading">
+          Salveaza modificarile <i ng-class="vm.dataLoading? 'fa fa-spinner fa-spin':'fa fa-paper-plane'"></i></button>
+    </div>
   </div><!--/col-4-->
   <div class="col-md-1 my-auto text-center">
       <div class="btn-group">
@@ -66,7 +78,7 @@
       <div class="list-group taskIteration">
         <a class="list-group-item active text-light">Done
           <div class="btn-group float-right">
-              <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedC, vm.listC)"><i class="fa fa-check"></i></button>
+              <button title="Selecteaza tot" class="btn btn-outline-light" ng-click="vm.selectAll(vm.selectedC, vm.listC, true);vm.selectedA=[];vm.selectedB=[];"><i class="fa fa-check"></i></button>
               <button title="Deselecteaza tot" class="btn btn-outline-light" ng-click="vm.selectedC=[]"><i class="fa fa-times-circle-o"></i></button>
           </div>
         </a>
@@ -86,8 +98,4 @@
         </a>
       </div>
     </div><!--/col-4-->
-    <div class="col-md-12 text-center" style="padding: 25px;">
-        <button title="Send to Done" class="btn btn-success" ng-click="vm.sendStatus()" ng-disabled="vm.dataModif || vm.dataLoading">
-          Salveaza modificarile <i ng-class="vm.dataLoading? 'fa fa-spinner fa-spin':'fa fa-paper-plane'"></i></button>
-    </div>
 </div>

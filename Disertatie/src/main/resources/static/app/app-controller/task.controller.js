@@ -11,6 +11,9 @@
         vm.activeTask = '';
 
         (function initController() {
+            UserService.getTasksByDept($rootScope.globals.currentUser.dept).then(function(response){
+                vm.tasksData = response.data;
+            });
             
         })();
         

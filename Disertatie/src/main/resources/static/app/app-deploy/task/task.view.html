@@ -5,36 +5,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4 listTasks">
-            <div class="list-group" id="list-tab" role="tablist">
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-home" ng-click="vm.selectTask(1)">Home</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-profiles" ng-click="vm.selectTask(2)">Profile</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-messages" ng-click="vm.selectTask(3)">Messages</button>
-                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#list-settings" ng-click="vm.selectTask(4)">Settings</button>
+        <div class="col-4">
+            <div class="list-group listTasks" role="tablist">
+                <button class="list-group-item list-group-item-action" role="tab" data-toggle="list" data-target="#collapse-{{$index}}" ng-click="vm.selectTask(task.id)" ng-repeat="task in vm.tasksData track by task.id">{{task.title}}</button>
             </div>
         </div>
         <div class="col-8 listTasks backgroundTasks">
-            <div class="tab-content" id="task-details">
-                <div class="tab-pane fade" id="list-home" role="tabpanel">
+            <div class="tab-content">
+                <div class="tab-pane fade" id="collapse-{{$index}}" role="tabpanel" ng-repeat="task in vm.tasksData track by task.id">
                     <table class="table table-borderless">
                         <tr>
                             <td>Descriere:
-                            <td>
-                                Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi enim eu nostrud do aliquip veniam minim.
-                            </td>
+                            <td>{{task.description}}</td>
                         </tr>
                     
                         <tr>
                             <td>Prioritate:</td>
-                            <td>
-                                    mica
-                            </td>
+                            <td>{{task.priority.name}}</td>
                         </tr>
                         <tr>
                             <td>Deadline:</td>
-                            <td id="3">
-                                    12-10-2019
-                            </td>
+                            <td>{{task.description | date: 'dd MMM yyyy'}}</td>
                         </tr>
                     </table>
                 </div>

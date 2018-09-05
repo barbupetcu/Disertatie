@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="DIC_USER_LEVEL")
 public class DicUserLevel{
 	@Id
-	@Column(name="USER_ID", nullable=false, updatable=false)
+	@Column(name="PERSO_USER_ID", nullable=false, updatable=false)
 	private long id;
 	
 	@Column(name="TOTAL_POINTS")
@@ -49,6 +49,20 @@ public class DicUserLevel{
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId
     private DicPerso perso;
+	
+	@ManyToOne
+    @JoinColumn(name="LEVEL_ID")
+    private RefLevel level;
+	
+	public DicUserLevel() {};
+	
+	public DicUserLevel(DicPerso perso, RefLevel level, int points, int percentage) {
+		this.perso = perso;
+		this.level = level;
+		this.totalPoints = points;
+		this.perLevel = percentage;
+		
+	}
 
 	public long getId() {
 		return id;
@@ -97,5 +111,15 @@ public class DicUserLevel{
 	public void setPerso(DicPerso perso) {
 		this.perso = perso;
 	}
+
+	public RefLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(RefLevel level) {
+		this.level = level;
+	}
+	
+	
 	
 }

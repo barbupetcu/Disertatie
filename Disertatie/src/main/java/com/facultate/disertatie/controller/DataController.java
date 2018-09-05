@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.facultate.disertatie.entity.Dept;
+import com.facultate.disertatie.entity.DicTaskIteration;
+import com.facultate.disertatie.entity.RefDifficulty;
 import com.facultate.disertatie.entity.RefPriority;
 import com.facultate.disertatie.repository.DeptRepository;
+import com.facultate.disertatie.repository.DicTaskIterationRepository;
+import com.facultate.disertatie.repository.RefDifficultyRepository;
 import com.facultate.disertatie.repository.RefPriorityRepository;
 
 @RestController
@@ -21,6 +25,12 @@ public class DataController{
 	
 	@Autowired
 	private RefPriorityRepository refPriorityRepository;
+	
+	@Autowired
+	private RefDifficultyRepository refDifficultyRepository;
+	
+	@Autowired
+	private DicTaskIterationRepository dicTaskIterationReposiory;
 	
 	@RequestMapping(value = "/api/depts", method = RequestMethod.GET)
 	public HashMap<String, Object> getDepts(){
@@ -44,4 +54,23 @@ public class DataController{
 
 		return priority;
 	}
+	
+	@RequestMapping(value = "/api/difficulty", method = RequestMethod.GET)
+	public List<RefDifficulty> getDifficulty(){
+
+		List<RefDifficulty> difficulty = refDifficultyRepository.findAll();
+
+		return difficulty;
+	}
+	
+	@RequestMapping(value = "/api/iteration", method = RequestMethod.GET)
+	public List<DicTaskIteration> getIteration(){
+
+		List<DicTaskIteration> iterations = dicTaskIterationReposiory.findAll();
+
+		return iterations;
+	}
+	
+	
+	
 }

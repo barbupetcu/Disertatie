@@ -61,6 +61,10 @@ public class DicPerso {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId
     private AppUser user;
+    
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "perso")
+    private DicUserLevel level;
 
 	public Long getId() {
 		return id;
@@ -141,6 +145,12 @@ public class DicPerso {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	
+
+	public DicUserLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(DicUserLevel level) {
+		this.level = level;
+	}	
 }
