@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import com.facultate.disertatie.entity.AppRole;
 import com.facultate.disertatie.entity.AppUser;
 import com.facultate.disertatie.entity.DicPerso;
+import com.facultate.disertatie.entity.DicUserLevel;
 import com.facultate.disertatie.projection.DisabledUsers;
 import com.facultate.disertatie.projection.TeamUsers;
 import com.facultate.disertatie.repository.AppRoleRepository;
 import com.facultate.disertatie.repository.AppUserRepository;
 import com.facultate.disertatie.repository.DicPersoRepository;
+import com.facultate.disertatie.repository.DicUserLevelRepository;
+import com.facultate.disertatie.repository.RefLevelRepository;
 
 @Service
 public class UserService {
@@ -26,6 +29,10 @@ public class UserService {
     private DicPersoRepository dicPersoRepository;
     @Autowired
     private AppRoleRepository roleRepository;
+    @Autowired
+    private DicUserLevelRepository dicUserLevelRepositry;
+    @Autowired
+    private RefLevelRepository refLevelRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -37,9 +44,13 @@ public class UserService {
         user.setRoles(customRole);
         DicPerso appPerso = user.getPerso();
         appPerso.setUser(user);
+        
         user.setPerso(appPerso);
         
-        userRepository.save(user);
+        AppUser response = userRepository.save(user);
+        
+        dicUserLevelRepositry.save(new DicUserLevel(response.getPerso(), refLevelRepository.getOne(1), 0, 0));        
+            	
     }
     
     public void saveAllRoles(AppUser user) {
@@ -62,6 +73,8 @@ public class UserService {
     	AppUser temp = findById(appUser.getId());
     	appUser.setPassword(temp.getPassword());
     	return userRepository.save(appUser);
+    	
+    	
     }
     
     public void saveUser(AppUser user) {

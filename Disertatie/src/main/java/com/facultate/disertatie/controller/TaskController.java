@@ -43,5 +43,17 @@ public class TaskController {
 	public List<DicTask> getTasks(@RequestParam long sprintId){
     	return taskService.getTaskbySprint(sprintId);
 	}
+    
+    
+    @RequestMapping(value = "/api/sendtasks", method = RequestMethod.PUT)
+	public List<DicTask> sendTasks(@RequestBody List<DicTask> tasks){
+    	return taskService.updateStatus(tasks);
+	}
+    
+    @RequestMapping(value = "/api/gettasksByDept", method = RequestMethod.GET)
+   	public List<DicTask> getTasksByDept(@RequestParam long deptId){
+       	return taskService.getTaskbyDept(deptId);
+   	}
+       
 
 }

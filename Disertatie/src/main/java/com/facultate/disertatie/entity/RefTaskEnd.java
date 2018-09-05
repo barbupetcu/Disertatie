@@ -17,6 +17,28 @@ public class RefTaskEnd{
 	
 	@Column(name="weight")
 	private double weight;
+	
+	@Column(name="min_days")
+	private int minDays;
+	
+	@Column(name="max_days")
+	private int maxDays;
+
+	public int getMinDays() {
+		return minDays;
+	}
+
+	public void setMinDays(int minDays) {
+		this.minDays = minDays;
+	}
+
+	public int getMaxDays() {
+		return maxDays;
+	}
+
+	public void setMaxDays(int maxDays) {
+		this.maxDays = maxDays;
+	}
 
 	public int getId() {
 		return id;

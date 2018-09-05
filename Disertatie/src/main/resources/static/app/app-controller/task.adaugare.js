@@ -12,11 +12,23 @@
         vm.newTask={};
 
         (function initController() {
+            //inciarca Iteratii
+            UserService.getIteration()
+                .then(function(response){
+                    vm.interation = response;
+            });
             //incarca lista de prioritati
             UserService.getPriority()
                 .then(function(response){
                     vm.priority = response;
             });
+
+            //incarca lista de dificultati
+            UserService.getDifficulty()
+                .then(function(response){
+                    vm.difficulty = response;
+            });
+
 
             //incarca lista de useri disponibili
             UserService.getTeamUsers($rootScope.globals.currentUser.dept)

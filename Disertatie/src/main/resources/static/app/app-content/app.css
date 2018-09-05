@@ -23,8 +23,9 @@ padding-bottom: 10px;
 }
 
 .listTasks{
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
+    height: 300px;
 }
 
 .backgroundTasks{

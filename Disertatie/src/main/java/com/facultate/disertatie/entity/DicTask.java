@@ -50,6 +50,9 @@ public class DicTask{
 	@UpdateTimestamp
 	private LocalDateTime modified;
     
+    @Column(name="points")
+    private Integer points;
+    
     @ManyToOne
     @JoinColumn(name="DIFFICULTY")
     private RefDifficulty difficulty;
@@ -178,5 +181,14 @@ public class DicTask{
 	public void setUser(DicPerso user) {
 		this.user = user;
 	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+	
 		
 }
