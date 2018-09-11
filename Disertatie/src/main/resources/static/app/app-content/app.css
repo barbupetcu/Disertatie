@@ -23,14 +23,13 @@ padding-bottom: 10px;
 }
 
 .listTasks{
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
-    height: 300px;
+    height: 400px;
 }
 
 .backgroundTasks{
-    background-color: rgb(255, 255, 255);
-    height: 200px;
+    background-color: rgb(228, 228, 228);
 }
 .lvl-over {
     border: 1px dashed #555 !important;
@@ -323,3 +322,7 @@ padding-bottom: 10px;
     display: block;
     font-size: 18px;
   }
+
+.md-datepicker-calendar-pane {
+    z-index: 1200;
+}

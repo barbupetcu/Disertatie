@@ -10,24 +10,9 @@
         var vm = this;
         vm.setSelectedId=setSelectedId;
 
-        vm.disabledUsers = null;
-
-        vm.maxValue = 90;
-        vm.determinateValue = 60;
-
-        vm.value = 60;
-        
-        /*
-        $interval(function() {
-            vm.determinateValue += 1;
-
-            if (vm.determinateValue > vm.maxValue) {
-                vm.determinateValue = 1;
-            }
-         }, 150, 0, true);
-         */
         (function initController() {
             loadDisabledUsers();
+            loadHome();
             
         })();
 
@@ -38,11 +23,22 @@
                     vm.disabledUsers = response
                 }
             });
-        }
+        };
 
         function setSelectedId(selectedId) {
             DataService.setSelectedId(selectedId);
-        }
+        };
+
+        function loadHome(){
+            UserService.loadHomeManager($rootScope.globals.currentUser.dept)
+            .then(function (response){
+                if(response){
+                    vm.myTasks = response.myTasks;
+                    vm.countTasks = response.countTasks;
+                    vm.deptUsers = response.deptUsers;
+                }
+            });
+        };
     }
 
 })();

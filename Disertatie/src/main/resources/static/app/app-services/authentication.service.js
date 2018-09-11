@@ -46,7 +46,7 @@
                     dept: response.dept,
                     id: response.id,
                     roles: response.roles,
-                    isManager: isManager,
+                    isManager: isManager
                 }
             };
  

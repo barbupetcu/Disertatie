@@ -8,17 +8,17 @@
     </a>
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar">
         <ul class="navbar-nav w-100 justify-content-center">
-            <li ng-class="isActiveNavBar('/')? 'nav-item active': 'nav-item'">
-                <a class="nav-link" href="#!/">Home User</a>
+            <li ng-hide = "globals.currentUser.isManager" ng-class="isActiveNavBar('/')? 'nav-item active': 'nav-item'">
+                <a class="nav-link" href="#!/">Home</a>
+            </li>
+            <li ng-show = "globals.currentUser.isManager" ng-class="isActiveNavBar('/homeManager')? 'nav-item active': 'nav-item'">
+                <a class="nav-link" href="#!/homeManager/">Home</a>
             </li>
             <li ng-class="isActiveNavBar('/task')? 'nav-item active': 'nav-item'">
                 <a  class="nav-link" href="#!/task">Task</a>
             </li>
             <li ng-class="isActiveNavBar('/taskIteration')? 'nav-item active': 'nav-item'">
                 <a  class="nav-link" href="#!/taskIteration">Task Iteration</a>
-            </li>            
-            <li ng-class="isActiveNavBar('/Pricing')? 'nav-item active': 'nav-item'">
-                <a class="nav-link" href="#">Pricing</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">

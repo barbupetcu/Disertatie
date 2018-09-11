@@ -25,9 +25,47 @@
         service.getDifficulty=getDifficulty;
         service.getIteration=getIteration;
         service.getTasksByDept=getTasksByDept;
+        service.sendComment=sendComment;
+        service.loadCommentsByTask=loadCommentsByTask;
+        service.loadHomeData=loadHomeData;
+        service.addIteration=addIteration;
+        service.loadHomeManager=loadHomeManager;
         
         
         return service;
+
+        function loadHomeManager (deptId){
+            return $http({
+                url: '/api/loadHomeManager',
+                method: "GET",
+                params: {id: deptId}
+            }).then(handleSuccess, handleError());
+        }
+
+        function addIteration(iter) {
+            return $http.put('/api/senditeration', JSON.stringify(iter)).then(handleSuccessWithFlag, handleError('Eroare la crearea iteratiei'));
+        }
+
+        function loadHomeData (id){
+            return $http({
+                url: '/api/loadHome',
+                method: "GET",
+                params: {id: id}
+            }).then(handleSuccess, handleError());
+        }
+
+        function sendComment(comment) {
+        	return $http.post('/api/addcomment', JSON.stringify(comment)).then(handleSuccess, handleError());
+        }
+
+        function loadCommentsByTask(taskId) {
+            return $http({
+                url: '/api/commentsbytask',
+                method: "GET",
+                params: {taskId: taskId}
+            }).then(handleSuccess, handleError());
+        }
+
 
         function sendTasks(tasks) {
             return $http.put('/api/sendtasks', JSON.stringify(tasks)).then(handleSuccessWithFlag, handleError('Eroare la crearea task-ului'));
@@ -41,11 +79,10 @@
             }).then(handleSuccessWithFlag, handleError('Task-urile nu au putut fi incarcate'));
         }
 
-        function getTasksByDept(deptId) {
+        function getTasksByDept() {
             return $http({
                 url: '/api/gettasksByDept',
                 method: "GET",
-                params: {deptId: deptId}
             }).then(handleSuccessWithFlag, handleError('Task-urile nu au putut fi incarcate'));
         }
 

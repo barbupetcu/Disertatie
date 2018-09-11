@@ -45,7 +45,6 @@ public class DicUserLevel{
 	@UpdateTimestamp
 	private LocalDateTime modified;
     
-	@JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId
     private DicPerso perso;

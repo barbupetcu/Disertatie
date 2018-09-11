@@ -15,9 +15,13 @@ import com.facultate.disertatie.repository.DicTaskRepository;
 import com.facultate.disertatie.repository.DicUserLevelRepository;
 import com.facultate.disertatie.repository.RefLevelRepository;
 import com.facultate.disertatie.repository.RefTaskEndRepository;
+import com.facultate.disertatie.repository.RefTaskStatusRepository;
 
 @Service
 public class TaskService {
+	
+	@Autowired
+	private RefTaskStatusRepository refTaskStatusRepository;
     @Autowired
     private DicTaskRepository dicTaskRepository;
     
@@ -26,10 +30,35 @@ public class TaskService {
     @Autowired
     private RefLevelRepository refLevelRepository;
     @Autowired
-    private RefTaskEndRepository refTaskEndRepository; 
+    private RefTaskEndRepository refTaskEndRepository;
+    
+    public List<DicUserLevel> getAllLevelDetails(long id) {
+    	return dicUserLevelRepository.findByPerso_dept_deptIdOrderByTotalPointsDesc(id);
+    }
+    
+    public DicUserLevel getLevelDetails(long id) {
+    	return dicUserLevelRepository.findByPerso_id(id);
+    }
+    
+    public List<DicTask> getUserTasks (long id){
+    	return dicTaskRepository.findByUser_IdAndStatus_idNot(id, 4);
+    }
+    
+    public List<DicTask> getDeptTasks (long id){
+    	return dicTaskRepository.findByUser_dept_deptIdAndStatus_idNot(id, 4);
+    }
     
     public DicTask addTask (DicTask task) {
+    	
+    	if (task.getTaskIteration()!=null) {
+    		task.setStatus(refTaskStatusRepository.findById(2));
+    	}
+    	else {
+    		task.setStatus(refTaskStatusRepository.findById(1));
+    	}
+    	
     	return dicTaskRepository.save(task);
+    	
     }
     
     public DicTask getTask (long id) {
@@ -40,8 +69,8 @@ public class TaskService {
     	return dicTaskRepository.findByTaskIteration_id(sprintId);
     }
     
-    public List<DicTask> getTaskbyDept (long deptId){
-    	return dicTaskRepository.findByUser_Dept_deptId(deptId);
+    public List<DicTask> getTaskbyDept (){
+    	return dicTaskRepository.findAll();
     }
     
         
@@ -53,6 +82,7 @@ public class TaskService {
     		long userId = task.getUser().getId();
     		DicUserLevel userLevel = dicUserLevelRepository.findById(userId);
     		
+    		//in cazul in care statusul este Done iar punctele nu au fost acordate
     		if (task.getStatus().getId() == 4 && task.getPoints() == null) {
     			//actualizam data la care a fost terminat task-ul
     			task.setEnd_date(LocalDateTime.now());

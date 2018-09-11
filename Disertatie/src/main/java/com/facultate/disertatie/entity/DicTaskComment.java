@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,7 +32,9 @@ public class DicTaskComment{
 	@Column(name="TASK_COMMENT")
 	private String comment;
 	
-	@JsonIgnore
+	@Formula(value="to_char(created,'hh24:mi')")
+	private String hourString;
+	
     @Column(name="created", updatable=false)
 	@CreationTimestamp
 	private LocalDateTime created;
@@ -42,6 +46,14 @@ public class DicTaskComment{
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private DicPerso user;
+    
+	public String getHourString() {
+		return hourString;
+	}
+
+	public void setHourString(String hourString) {
+		this.hourString = hourString;
+	}
 
 	public long getId() {
 		return id;

@@ -27,29 +27,15 @@
                         <p class="h5">
                         Taskuri in lucru
                         </p>
-                        <span class="badge badge-primary badge-pill">14</span>
+                        <span class="badge badge-primary badge-pill">{{vm.countTasks}}</span>
                     </div>
                     <div class="list-group list-group-flush previewTasks">
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="item in vm.myTasks">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Titlu task 1</h5>
+                                <h5 class="mb-1">{{item.title}}</h5>
                             </div>
-                            <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small>Proprietar: Bobi Petcu</small>
-                        </div>
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Titlu task 2</h5>
-                            </div>
-                            <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small class="text-muted">Proprietar: Bobi Petcu</small>
-                        </div>
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Titlu task 3</h5>
-                            </div>
-                            <p class="mb-1">Descriere: Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small class="text-muted">Proprietar: Bobi Petcu</small>
+                            <p class="mb-1">Descriere: {{item.description}}</p>
+                            <small>Proprietar: {{item.user.name}} {{item.user.lastName}}</small>
                         </div>
                     </div>
                 </div>
@@ -64,25 +50,25 @@
                     <div>
                         <ul class="list-group previewTasks">
                             <li class="list-group-item">
-                                Cras justo odio
+                                Pirvu Alexandra
                                 <div class="progress">
                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                Dapibus ac facilisis in
+                                Matache Andrei
                                 <div class="progress">
                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                Morbi leo risus
+                                Lupascu Liviu
                                 <div class="progress">
                                     <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                Morbi risus
+                                Stoica Roxana
                                 <div class="progress">
                                     <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                                 </div>
@@ -116,37 +102,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
+                        <tr ng-repeat="item in vm.deptUsers">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{item.perso.name}} {{item.perso.lastName}}</td>
+                            <td>{{item.totalPoints}}</td>
                             <td>                               
                                 <div class="prg-circ-relative">
-                                        <md-progress-circular class="md-warn md-hue-3 prog-circ-round" md-mode="determinate" value="{{vm.determinateValue}}" md-diameter="50"></md-progress-circular>
-                                        <div class="prog-circ-value">90</div>
+                                    <md-progress-circular class="md-warn md-hue-3 prog-circ-round" md-mode="determinate" value="{{item.perLevel}}" md-diameter="50"></md-progress-circular>
+                                    <div class="prog-circ-value">{{item.level.id}}</div>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>
-                                <div class="prg-circ-relative">
-                                        <md-progress-circular class="md-warn md-hue-3 prog-circ-round" md-mode="determinate" value="{{vm.maxValue}}" md-diameter="50"></md-progress-circular>
-                                        <div class="prog-circ-value">90</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>
-                                <div class="prg-circ-relative">
-                                    <md-progress-circular class="md-warn md-hue-3 prog-circ-round" md-mode="determinate" value="{{vm.determinateValue}}" md-diameter="50"></md-progress-circular>
-                                    <div class="prog-circ-value">90</div>
-                                </div>                              
                             </td>
                         </tr>
                     </tbody>

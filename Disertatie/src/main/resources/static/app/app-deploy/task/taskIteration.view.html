@@ -1,7 +1,15 @@
-<div id="popupContainer" class="row" style="padding-top: 25px; padding-bottom: 25px">
-  <div class="col-md-12 text-center" style="margin-bottom: 10px;">
-    <h4>Task Iteration</h4>
+<div id="popupContainer" class="row justify-content-center" style="padding-top: 30px; padding-bottom: 30px">
+  <div class="col-md-auto">
+      <select class= "form-control" ng-change = "vm.reloadtasks()" ng-model="vm.selectedIteration" ng-options="item as (item.startDate | date: 'dd MMM yyyy') + ' - '+ (item.endDate | date: 'dd MMM yyyy') for item in vm.iterations track by item.id"></select>
   </div>
+  <div class="col-md-auto">
+      <button type="button" class="btn btn-primary" ng-click="vm.addIteration()">
+        Adauga iteratie
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+  </div>
+</div>
+<div class="row" style="padding-bottom: 50px">
   <div class="col-md-3 ml-auto">
     <div class="list-group taskIteration">
       <a class="list-group-item active text-light">To Do

@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,7 +31,7 @@ public class DicPerso {
 	@Column(name = "nume")
 	private String name;
 	
-	@Column(name = "prenume")
+	@Column(name = "prenume")	
 	private String lastName;
 	
 	@Column(name = "email")
@@ -41,6 +42,9 @@ public class DicPerso {
 	
 	@Column(name = "phone")
 	private String phone;
+	
+	@Formula(value="substr(nume, 1,1)||substr(prenume, 1,1)")
+	private String shortName;
 	
 	@JsonProperty("dept")
 	@ManyToOne
@@ -65,6 +69,14 @@ public class DicPerso {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "perso")
     private DicUserLevel level;
+    
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 
 	public Long getId() {
 		return id;

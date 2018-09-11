@@ -5,8 +5,8 @@
         .module('app')
         .controller('IterationController', IterationController);
 
-    IterationController.$inject = ['UserService', '_', 'FlashService', '$mdDialog', '$rootScope'];
-    function IterationController(UserService, _, FlashService, $mdDialog, $rootScope) {
+    IterationController.$inject = ['UserService', '_', 'FlashService', '$mdDialog', '$rootScope','$uibModal'];
+    function IterationController(UserService, _, FlashService, $mdDialog, $rootScope, $uibModal) {
 
         var vm=this;
         //lista cu toate task-urile
@@ -23,23 +23,40 @@
         vm.dataModif = true;
         vm.dataChecked = true;
         vm.taskUsers = [];
+        vm.iterations = [];
 
+        vm.reloadtasks = function(){
+            UserService.getTasks(vm.selectedIteration.id).then(function(response){
+                vm.tasksData = response.data;
+                splitTasks();
+            });
+        };
+        
+       
 
         (function initController() {
-            reloadtasks();
+            
             
             UserService.getTeamUsers($rootScope.globals.currentUser.dept)
                 .then(function(response){
                     vm.taskUsers = response;
             });
+
+            UserService.getIteration()
+                .then(function(response){
+                    vm.iterations = response;
+                    vm.selectedIteration = vm.iterations[vm.iterations.length -1];
+                    vm.reloadtasks();
+            });
+
+            
+
+            
+
         })();
 
-        function reloadtasks(){
-            UserService.getTasks(1).then(function(response){
-                vm.tasksData = response.data;
-                splitTasks();
-            });
-        }
+        
+        
 
         function showAlert(ev) {
             $mdDialog.show(
@@ -56,7 +73,12 @@
 
         function splitTasks(){
             vm.listA = vm.tasksData.filter(function (item){
-                return item.status.id === 2;
+                if (item.status === null){
+                    return item.status === null;
+                } else{
+                    return item.status.id === 2;
+                }
+                
             });
             vm.listB = vm.tasksData.filter(function (item){
                 return item.status.id === 3;
@@ -258,8 +280,6 @@
                     vm.dataLoading=false;
                 }
             });
-
-            
         };
 
         vm.changeUser = function changeUser(user, ev){
@@ -299,7 +319,7 @@
             $mdDialog.show(confirm).then(function() {
                 UserService.sendTasks(taskModif).then(function(response){
                     if(response.success){
-                        reloadtasks();            
+                        vm.reloadtasks();            
                         vm.dataLoading=false;
 
     
@@ -312,10 +332,25 @@
               
                 
             }, function() {
-                reloadtasks();
+                vm.reloadtasks();
                 vm.dataLoading=false;
                 reset();
             });
           };
+
+          vm.addIteration = function(){
+            $uibModal.open({
+                templateUrl: 'app/app-modal/iteration.adaugare.html',
+                controller: 'AddIteration',
+                controllerAs: 'vm'
+            }).result.then(function(){
+                UserService.getIteration()
+                .then(function(response){
+                    vm.iterations = response;
+            });
+
+            }, function(){})
+        };
+
     }
 })();
